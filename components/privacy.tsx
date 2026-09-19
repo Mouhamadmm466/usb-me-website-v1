@@ -30,10 +30,7 @@ const tools = [
 
 export function Privacy() {
   return (
-    <section
-      id="privacy"
-      className="relative overflow-hidden border-y border-border bg-gradient-to-b from-[oklch(0.94_0.04_240)] to-background"
-    >
+    <section id="privacy" className="border-y border-border bg-card">
       <div className="mx-auto max-w-6xl px-5 py-24 sm:px-8 md:py-32">
         <div className="grid gap-14 md:grid-cols-[minmax(0,1fr)_minmax(0,1.4fr)] md:gap-16">
           <div>
@@ -50,11 +47,11 @@ export function Privacy() {
           </div>
 
           <div>
-            <div className="grid gap-4">
+            <div className="grid gap-px overflow-hidden rounded-xl border border-border bg-border">
               {modes.map((m) => (
                 <div
                   key={m.name}
-                  className="glass-panel flex flex-col gap-2 rounded-2xl p-6 sm:flex-row sm:items-baseline sm:gap-8 sm:p-7"
+                  className="flex flex-col gap-2 bg-card p-6 sm:flex-row sm:items-baseline sm:gap-8 sm:p-7"
                 >
                   <h3 className="min-w-[180px] font-serif text-xl font-normal">
                     {m.name}
@@ -73,7 +70,7 @@ export function Privacy() {
               {tools.map((t) => (
                 <span
                   key={t}
-                  className="rounded-full border border-white/60 bg-white/50 px-3 py-1 text-sm text-muted-foreground backdrop-blur-sm"
+                  className="rounded-full border border-border bg-background px-3 py-1 text-sm text-muted-foreground"
                 >
                   {t}
                 </span>

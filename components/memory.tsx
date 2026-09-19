@@ -43,7 +43,7 @@ export function Memory() {
             {entities.map((e) => (
               <span
                 key={e}
-                className="rounded-full border border-white/60 bg-white/50 px-3 py-1 text-sm text-muted-foreground backdrop-blur-sm"
+                className="rounded-full border border-border bg-card px-3 py-1 text-sm text-muted-foreground"
               >
                 {e}
               </span>
@@ -56,22 +56,18 @@ export function Memory() {
           </p>
         </div>
 
-        {/* Signature: typographic knowledge graph on glass */}
-        <div className="glass relative overflow-hidden rounded-2xl p-7 sm:p-9">
-          <div
-            aria-hidden="true"
-            className="pointer-events-none absolute -right-16 -top-16 h-52 w-52 rounded-full bg-[radial-gradient(circle,var(--sky)_0%,transparent_70%)] opacity-50 blur-2xl"
-          />
-          <p className="relative mb-8 font-mono text-xs uppercase tracking-widest text-muted-foreground">
+        {/* Signature: typographic knowledge graph */}
+        <div className="grain relative overflow-hidden rounded-xl border border-border bg-card p-7 sm:p-9">
+          <p className="mb-8 font-mono text-xs uppercase tracking-widest text-muted-foreground">
             A fragment of your graph
           </p>
-          <ol className="relative space-y-0">
-            {chain.map((step) => (
+          <ol className="space-y-0">
+            {chain.map((step, i) => (
               <li key={step.node}>
                 <div className="flex items-center gap-4">
                   <span
                     aria-hidden="true"
-                    className="flex h-2 w-2 shrink-0 items-center justify-center rounded-full bg-primary shadow-[0_0_10px_1px_var(--sky)]"
+                    className="flex h-2 w-2 shrink-0 items-center justify-center rounded-full bg-foreground"
                   />
                   <span className="font-serif text-xl">{step.node}</span>
                 </div>
@@ -79,7 +75,7 @@ export function Memory() {
                   <div className="ml-[3px] flex items-stretch gap-4">
                     <span
                       aria-hidden="true"
-                      className="my-1 block w-px bg-primary/40"
+                      className="my-1 block w-px bg-border"
                     />
                     <span className="py-1.5 font-mono text-xs italic tracking-wide text-muted-foreground">
                       {step.rel}
