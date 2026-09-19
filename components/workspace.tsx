@@ -30,10 +30,10 @@ export function Workspace() {
         </p>
       </div>
 
-      <div className="glass mt-14 overflow-hidden rounded-2xl">
-        <div className="flex flex-col gap-4 border-b border-white/50 p-7 sm:flex-row sm:items-end sm:justify-between sm:p-9">
+      <div className="mt-14 overflow-hidden rounded-xl border border-border bg-card">
+        <div className="flex flex-col gap-4 border-b border-border p-7 sm:flex-row sm:items-end sm:justify-between sm:p-9">
           <div>
-            <p className="font-mono text-xs uppercase tracking-widest text-sky-accent">
+            <p className="font-mono text-xs uppercase tracking-widest text-muted-foreground">
               Workspace
             </p>
             <h3 className="mt-2 font-serif text-3xl font-light">
@@ -44,13 +44,13 @@ export function Workspace() {
             </p>
           </div>
           <div className="sm:text-right">
-            <p className="font-serif text-4xl font-light text-sky-accent">72%</p>
+            <p className="font-serif text-4xl font-light">72%</p>
             <p className="text-sm text-muted-foreground">Progress</p>
           </div>
         </div>
 
-        <div className="grid gap-px bg-white/40 sm:grid-cols-3">
-          <div className="bg-white/35 p-7 sm:p-9">
+        <div className="grid gap-px bg-border sm:grid-cols-3">
+          <div className="bg-card p-7 sm:p-9">
             <p className="mb-4 font-mono text-xs uppercase tracking-widest text-muted-foreground">
               Tasks
             </p>
@@ -61,8 +61,8 @@ export function Workspace() {
                     aria-hidden="true"
                     className={
                       t.done
-                        ? 'flex h-4 w-4 items-center justify-center rounded-full bg-primary text-[10px] text-primary-foreground'
-                        : 'h-4 w-4 rounded-full border border-primary/40'
+                        ? 'flex h-4 w-4 items-center justify-center rounded-full bg-foreground text-[10px] text-background'
+                        : 'h-4 w-4 rounded-full border border-border'
                     }
                   >
                     {t.done ? '✓' : ''}
@@ -79,7 +79,7 @@ export function Workspace() {
             </ul>
           </div>
 
-          <div className="bg-white/35 p-7 sm:p-9">
+          <div className="bg-card p-7 sm:p-9">
             <p className="mb-4 font-mono text-xs uppercase tracking-widest text-muted-foreground">
               Decisions
             </p>
@@ -99,7 +99,7 @@ export function Workspace() {
             <p className="text-[15px] text-muted-foreground">Sarah · Abdou</p>
           </div>
 
-          <div className="bg-white/35 p-7 sm:p-9">
+          <div className="bg-card p-7 sm:p-9">
             <p className="mb-4 font-mono text-xs uppercase tracking-widest text-muted-foreground">
               Recent activity
             </p>
@@ -108,7 +108,7 @@ export function Workspace() {
                 <li key={a} className="flex items-start gap-3 text-[15px]">
                   <span
                     aria-hidden="true"
-                    className="mt-2 h-1 w-1 shrink-0 rounded-full bg-primary"
+                    className="mt-2 h-1 w-1 shrink-0 rounded-full bg-foreground/50"
                   />
                   <span className="text-muted-foreground">{a}</span>
                 </li>
