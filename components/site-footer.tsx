@@ -51,7 +51,7 @@ export function SiteFooter() {
 
         <div className="mt-16 flex flex-col gap-3 border-t border-border pt-6 text-sm text-muted-foreground sm:flex-row sm:items-center sm:justify-between">
           <p>Kin © 2026 — Runs on-device with NVIDIA Nemotron.</p>
-          <p className="font-serif italic">The phone is the home of the intelligence.</p>
+          <p className="font-serif italic text-sky-accent">The phone is the home of the intelligence.</p>
         </div>
       </div>
     </footer>

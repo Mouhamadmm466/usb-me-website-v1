@@ -18,11 +18,14 @@ const offline = [
 
 export function LocalFirst() {
   return (
-    <section id="local" className="border-y border-border bg-card">
+    <section
+      id="local"
+      className="relative overflow-hidden border-y border-border bg-gradient-to-b from-background via-[oklch(0.93_0.045_240)] to-background"
+    >
       <div className="mx-auto max-w-6xl px-5 py-24 sm:px-8 md:py-32">
         <div className="grid gap-14 md:grid-cols-2 md:gap-16">
           <div className="order-2 md:order-1">
-            <figure className="grain relative aspect-[4/5] w-full overflow-hidden rounded-xl border border-border bg-background">
+            <figure className="grain relative aspect-[4/5] w-full overflow-hidden rounded-2xl border border-white/60 bg-background shadow-[0_28px_70px_-40px_oklch(0.4_0.1_260/0.55)]">
               <Image
                 src="/images/device.png"
                 alt="A hand holding a phone in soft directional light"
@@ -44,7 +47,7 @@ export function LocalFirst() {
               Kin reaches out for that one step and comes back home.
             </p>
 
-            <div className="mt-8 rounded-xl border border-border bg-background p-6">
+            <div className="glass mt-8 rounded-2xl p-6">
               <p className="mb-4 font-mono text-xs uppercase tracking-widest text-muted-foreground">
                 Your phone
               </p>
@@ -60,7 +63,7 @@ export function LocalFirst() {
                     {i < stack.length - 1 && (
                       <div
                         aria-hidden="true"
-                        className="ml-1 h-3 w-px bg-border"
+                        className="ml-1 h-3 w-px bg-primary/40"
                       />
                     )}
                   </li>
@@ -79,7 +82,7 @@ export function LocalFirst() {
                 >
                   <span
                     aria-hidden="true"
-                    className="mt-2 h-1 w-1 shrink-0 rounded-full bg-foreground/50"
+                    className="mt-2 h-1 w-1 shrink-0 rounded-full bg-primary"
                   />
                   <span className="font-serif italic text-muted-foreground">
                     “{q}”
