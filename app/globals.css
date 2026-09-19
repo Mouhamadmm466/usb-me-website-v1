@@ -38,33 +38,33 @@
   color-scheme: light;
   --radius: 0.75rem;
 
-  /* Warm cream editorial palette (monochrome) */
-  --background: oklch(0.964 0.008 92);
-  --foreground: oklch(0.235 0.008 75);
+  /* Bright & happy: sky blue + light yellow, editorial */
+  --background: oklch(0.98 0.034 101);
+  --foreground: oklch(0.31 0.062 256);
 
-  --card: oklch(0.945 0.009 92);
-  --card-foreground: oklch(0.235 0.008 75);
+  --card: oklch(0.995 0.012 220);
+  --card-foreground: oklch(0.31 0.062 256);
 
-  --popover: oklch(0.964 0.008 92);
-  --popover-foreground: oklch(0.235 0.008 75);
+  --popover: oklch(0.995 0.012 220);
+  --popover-foreground: oklch(0.31 0.062 256);
 
-  --primary: oklch(0.235 0.008 75);
-  --primary-foreground: oklch(0.964 0.008 92);
+  --primary: oklch(0.655 0.148 240);
+  --primary-foreground: oklch(0.99 0.012 240);
 
-  --secondary: oklch(0.915 0.011 92);
-  --secondary-foreground: oklch(0.235 0.008 75);
+  --secondary: oklch(0.935 0.082 101);
+  --secondary-foreground: oklch(0.31 0.062 256);
 
-  --muted: oklch(0.915 0.011 92);
-  --muted-foreground: oklch(0.53 0.012 80);
+  --muted: oklch(0.955 0.03 224);
+  --muted-foreground: oklch(0.505 0.058 252);
 
-  --accent: oklch(0.915 0.011 92);
-  --accent-foreground: oklch(0.235 0.008 75);
+  --accent: oklch(0.905 0.104 101);
+  --accent-foreground: oklch(0.31 0.062 256);
 
-  --destructive: oklch(0.505 0.19 27);
+  --destructive: oklch(0.577 0.198 27);
 
-  --border: oklch(0.872 0.013 90);
-  --input: oklch(0.872 0.013 90);
-  --ring: oklch(0.53 0.012 80);
+  --border: oklch(0.885 0.036 236);
+  --input: oklch(0.885 0.036 236);
+  --ring: oklch(0.655 0.148 240);
 }
 
 @layer base {
@@ -87,7 +87,7 @@
     position: absolute;
     inset: 0;
     pointer-events: none;
-    opacity: 0.32;
+    opacity: 0.16;
     mix-blend-mode: multiply;
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
   }
