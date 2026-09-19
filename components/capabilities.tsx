@@ -25,7 +25,7 @@ const pillars = [
 
 export function Capabilities() {
   return (
-    <section className="border-y border-border bg-card">
+    <section className="relative overflow-hidden border-y border-border bg-gradient-to-b from-[oklch(0.94_0.04_240)] to-background">
       <div className="mx-auto max-w-6xl px-5 py-24 sm:px-8 md:py-32">
         <div className="max-w-3xl">
           <SectionLabel>What it does</SectionLabel>
@@ -39,13 +39,13 @@ export function Capabilities() {
           </p>
         </div>
 
-        <div className="mt-16 grid gap-px overflow-hidden rounded-xl border border-border bg-border sm:grid-cols-2">
+        <div className="mt-16 grid gap-5 sm:grid-cols-2">
           {pillars.map((p) => (
             <article
               key={p.k}
-              className="flex flex-col gap-4 bg-card p-8 md:p-10"
+              className="glass-panel flex flex-col gap-4 rounded-2xl p-8 md:p-10"
             >
-              <span className="font-mono text-xs tracking-widest text-muted-foreground">
+              <span className="font-mono text-xs tracking-widest text-sky-accent">
                 {p.k}
               </span>
               <h3 className="font-serif text-2xl font-normal leading-snug">
