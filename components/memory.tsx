@@ -1,90 +1,169 @@
+'use client'
+
+import { useState } from 'react'
+import { Reveal } from '@/components/reveal'
 import { SectionLabel } from '@/components/section-label'
 
-const entities = [
-  'People',
-  'Projects',
-  'Goals',
-  'Tasks',
-  'Documents',
-  'Decisions',
-  'Commitments',
-  'Preferences',
-  'Events',
-  'Relationships',
-  'Conversations',
-]
+type NodeId =
+  | 'you'
+  | 'sarah'
+  | 'abdou'
+  | 'project'
+  | 'demo'
+  | 'goal'
+  | 'decision'
+  | 'doc'
 
-const chain = [
-  { node: 'Sarah', rel: 'works on' },
-  { node: 'Mobile App', rel: 'has goal' },
-  { node: 'Launch Beta', rel: 'deadline' },
-  { node: 'October 20', rel: null },
+const nodes: Record<
+  NodeId,
+  { x: number; y: number; label: string; kind: string; detail: string }
+> = {
+  you: { x: 268, y: 206, label: 'You', kind: 'Person', detail: 'The centre of the graph. Everything it knows hangs off you.' },
+  sarah: { x: 92, y: 96, label: 'Sarah', kind: 'Person', detail: 'Collaborator on the benchmark. You owe her the latency numbers.' },
+  abdou: { x: 84, y: 306, label: 'Abdou', kind: 'Person', detail: 'Builds the voice pipeline. Waiting on your review since Tuesday.' },
+  project: { x: 262, y: 62, label: 'Nemotron benchmark', kind: 'Project', detail: 'Active since August. Two people, four open tasks, one blocker.' },
+  demo: { x: 460, y: 112, label: 'Investor demo', kind: 'Event', detail: 'Thursday, 9:00 AM. Thirty minutes. Needs the benchmark finished.' },
+  goal: { x: 470, y: 292, label: 'Beta by 20 Oct', kind: 'Goal', detail: 'Your deadline. It plans backwards from here when you ask what to do.' },
+  decision: { x: 278, y: 356, label: 'Use Nemotron Nano', kind: 'Decision', detail: 'Made 2 September, because it fits in memory on an iPhone 15.' },
+  doc: { x: 104, y: 200, label: 'Latency results', kind: 'Document', detail: 'On your phone. It read this, so it can answer questions about it.' },
+}
+
+const edges: { a: NodeId; b: NodeId; rel: string }[] = [
+  { a: 'you', b: 'sarah', rel: 'works with' },
+  { a: 'you', b: 'abdou', rel: 'works with' },
+  { a: 'you', b: 'project', rel: 'leads' },
+  { a: 'sarah', b: 'project', rel: 'contributes to' },
+  { a: 'abdou', b: 'project', rel: 'contributes to' },
+  { a: 'project', b: 'demo', rel: 'shown at' },
+  { a: 'project', b: 'goal', rel: 'aims at' },
+  { a: 'you', b: 'goal', rel: 'committed to' },
+  { a: 'project', b: 'decision', rel: 'decided' },
+  { a: 'you', b: 'doc', rel: 'owns' },
+  { a: 'doc', b: 'project', rel: 'about' },
 ]
 
 export function Memory() {
+  const [active, setActive] = useState<NodeId | null>(null)
+
+  const isLit = (id: NodeId) =>
+    !active ||
+    active === id ||
+    edges.some(
+      (e) => (e.a === active && e.b === id) || (e.b === active && e.a === id),
+    )
+
+  const current = active ? nodes[active] : null
+
   return (
-    <section
-      id="memory"
-      className="mx-auto max-w-6xl px-5 py-24 sm:px-8 md:py-32"
-    >
-      <div className="grid gap-14 md:grid-cols-2 md:gap-16">
-        <div>
-          <SectionLabel>Personal memory</SectionLabel>
-          <h2 className="mt-6 text-balance font-serif text-3xl font-light leading-[1.12] tracking-[-0.01em] sm:text-4xl md:text-[2.9rem]">
-            It knows how things connect — not just what you said.
-          </h2>
-          <p className="mt-6 text-lg leading-relaxed text-muted-foreground">
-            Kin keeps a structured understanding of your world instead of a long
-            chat history. Entities link to one another, so it can reason about
-            relationships rather than treat everything as isolated text.
-          </p>
+    <section id="memory" className="border-y border-line bg-panel">
+      <div className="rail py-24 md:py-32">
+        <div className="grid gap-14 px-5 sm:px-10 md:grid-cols-12 md:gap-12">
+          <Reveal className="md:col-span-5">
+            <SectionLabel>Memory</SectionLabel>
+            <h2 className="display-sm mt-7 max-w-[18ch] text-[clamp(2rem,4.6vw,3.4rem)]">
+              It knows how your world connects.
+            </h2>
+            <p className="mt-6 max-w-[48ch] text-[18px] leading-[1.6] text-muted-foreground">
+              Not a scrolling history of everything you ever typed. usb-me keeps
+              a structured picture of your life — people, projects, goals,
+              documents, decisions, commitments — and the links between them.
+              That is what lets it answer “where did we leave off?” without you
+              explaining anything.
+            </p>
+            <p className="mt-5 max-w-[48ch] text-[18px] leading-[1.6] text-foreground">
+              You can read every part of it, correct it, or delete it. It lives
+              on your phone, and it comes with you when the models get better.
+            </p>
+          </Reveal>
 
-          <div className="mt-8 flex flex-wrap gap-2">
-            {entities.map((e) => (
-              <span
-                key={e}
-                className="rounded-full border border-border bg-card px-3 py-1 text-sm text-muted-foreground"
+          <Reveal delay={120} className="md:col-span-7">
+            <figure
+              className="overflow-hidden rounded-xl border border-line bg-background"
+              onMouseLeave={() => setActive(null)}
+            >
+              <svg
+                viewBox="0 0 560 420"
+                className="w-full"
+                role="img"
+                aria-label="A fragment of a personal knowledge graph linking people, a project, a demo, a goal, a decision and a document."
               >
-                {e}
-              </span>
-            ))}
-          </div>
-
-          <p className="mt-8 text-[15px] leading-relaxed text-muted-foreground">
-            You can inspect, correct, or delete anything it knows. The
-            intelligence grows with you — no long profile to fill out.
-          </p>
-        </div>
-
-        {/* Signature: typographic knowledge graph */}
-        <div className="grain relative overflow-hidden rounded-xl border border-border bg-card p-7 sm:p-9">
-          <p className="mb-8 font-mono text-xs uppercase tracking-widest text-muted-foreground">
-            A fragment of your graph
-          </p>
-          <ol className="space-y-0">
-            {chain.map((step, i) => (
-              <li key={step.node}>
-                <div className="flex items-center gap-4">
-                  <span
-                    aria-hidden="true"
-                    className="flex h-2 w-2 shrink-0 items-center justify-center rounded-full bg-foreground"
-                  />
-                  <span className="font-serif text-xl">{step.node}</span>
-                </div>
-                {step.rel && (
-                  <div className="ml-[3px] flex items-stretch gap-4">
-                    <span
-                      aria-hidden="true"
-                      className="my-1 block w-px bg-border"
+                {edges.map((e) => {
+                  const A = nodes[e.a]
+                  const B = nodes[e.b]
+                  const touched = active === e.a || active === e.b
+                  return (
+                    <line
+                      key={`${e.a}-${e.b}`}
+                      x1={A.x}
+                      y1={A.y}
+                      x2={B.x}
+                      y2={B.y}
+                      stroke={touched ? 'var(--signal)' : 'var(--line)'}
+                      strokeWidth={touched ? 1.4 : 1}
+                      opacity={active && !touched ? 0.35 : 1}
+                      style={{ transition: 'stroke 250ms ease, opacity 250ms ease' }}
                     />
-                    <span className="py-1.5 font-mono text-xs italic tracking-wide text-muted-foreground">
-                      {step.rel}
+                  )
+                })}
+
+                {(Object.keys(nodes) as NodeId[]).map((id) => {
+                  const n = nodes[id]
+                  const lit = isLit(id)
+                  const isActive = active === id
+                  return (
+                    <g
+                      key={id}
+                      tabIndex={0}
+                      role="button"
+                      aria-label={`${n.label} — ${n.kind}`}
+                      onMouseEnter={() => setActive(id)}
+                      onFocus={() => setActive(id)}
+                      onBlur={() => setActive(null)}
+                      style={{
+                        cursor: 'pointer',
+                        opacity: lit ? 1 : 0.28,
+                        transition: 'opacity 250ms ease',
+                      }}
+                    >
+                      <circle
+                        cx={n.x}
+                        cy={n.y}
+                        r={isActive ? 6.5 : 4.5}
+                        fill={isActive ? 'var(--signal)' : 'var(--foreground)'}
+                        style={{ transition: 'r 200ms ease, fill 200ms ease' }}
+                      />
+                      <text
+                        x={n.x}
+                        y={n.y - 14}
+                        textAnchor="middle"
+                        fill="var(--foreground)"
+                        fontSize="13.5"
+                        fontFamily="var(--font-dm-sans)"
+                        letterSpacing="-0.01em"
+                      >
+                        {n.label}
+                      </text>
+                    </g>
+                  )
+                })}
+              </svg>
+
+              <figcaption className="flex min-h-[70px] items-center gap-4 border-t border-line px-6 py-4">
+                {current ? (
+                  <>
+                    <span className="readout shrink-0">{current.kind}</span>
+                    <span className="text-[15px] leading-snug text-foreground">
+                      {current.detail}
                     </span>
-                  </div>
+                  </>
+                ) : (
+                  <span className="text-[15px] text-muted-foreground">
+                    Point at anything here to see what it holds.
+                  </span>
                 )}
-              </li>
-            ))}
-          </ol>
+              </figcaption>
+            </figure>
+          </Reveal>
         </div>
       </div>
     </section>

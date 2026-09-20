@@ -1,12 +1,12 @@
 import { SiteNav } from '@/components/site-nav'
 import { Hero } from '@/components/hero'
-import { Problem } from '@/components/problem'
-import { Capabilities } from '@/components/capabilities'
+import { Thesis } from '@/components/thesis'
+import { Ladder } from '@/components/ladder'
 import { Memory } from '@/components/memory'
-import { LocalFirst } from '@/components/local-first'
+import { Device } from '@/components/device'
 import { Workspace } from '@/components/workspace'
-import { Privacy } from '@/components/privacy'
-import { ClosingCta } from '@/components/closing-cta'
+import { Control } from '@/components/control'
+import { Access } from '@/components/access'
 import { SiteFooter } from '@/components/site-footer'
 
 export default function Page() {
@@ -15,13 +15,13 @@ export default function Page() {
       <SiteNav />
       <main>
         <Hero />
-        <Problem />
-        <Capabilities />
+        <Thesis />
+        <Ladder />
         <Memory />
-        <LocalFirst />
+        <Device />
         <Workspace />
-        <Privacy />
-        <ClosingCta />
+        <Control />
+        <Access />
       </main>
       <SiteFooter />
     </div>

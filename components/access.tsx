@@ -1,0 +1,101 @@
+'use client'
+
+import { useState } from 'react'
+import Image from 'next/image'
+import { Reveal } from '@/components/reveal'
+
+const asks = [
+  'Where did we leave off?',
+  'What did I promise people this week?',
+  'I have two hours. What should I work on?',
+  'What are we still missing before launch?',
+]
+
+export function Access() {
+  const [email, setEmail] = useState('')
+  const [sent, setSent] = useState(false)
+
+  return (
+    <section id="access" className="border-t border-line">
+      <div className="rail rail-edges py-24 md:py-32">
+        <div className="grid gap-14 px-5 sm:px-10 md:grid-cols-12 md:gap-12">
+          <Reveal className="md:col-span-6">
+            <h2 className="display max-w-[14ch] text-[clamp(2.4rem,5.6vw,4.2rem)]">
+              Six months in, it already knows.
+            </h2>
+            <p className="mt-7 max-w-[46ch] text-[18px] leading-[1.6] text-muted-foreground">
+              You pick up your phone and there is no catching up to do. Less
+              like opening an app, more like carrying on. We are letting the
+              first people in soon.
+            </p>
+
+            <form
+              className="mt-9"
+              onSubmit={(e) => {
+                e.preventDefault()
+                if (email.trim()) setSent(true)
+              }}
+            >
+              <div className="flex flex-col gap-3 sm:flex-row">
+                <label htmlFor="email" className="sr-only">
+                  Email address
+                </label>
+                <input
+                  id="email"
+                  type="email"
+                  required
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  placeholder="you@example.com"
+                  className="min-w-0 flex-1 rounded-lg border border-line bg-panel px-4 py-3 text-[15px] text-foreground placeholder:text-muted-foreground"
+                />
+                <button
+                  type="submit"
+                  className="rounded-lg bg-foreground px-5 py-3 text-[15px] font-medium text-background transition-transform duration-200 hover:-translate-y-px"
+                >
+                  Request access
+                </button>
+              </div>
+              <p
+                className="mt-3 text-[14px]"
+                style={{
+                  color: sent ? 'var(--signal)' : 'var(--muted-foreground)',
+                }}
+                role={sent ? 'status' : undefined}
+              >
+                {sent
+                  ? 'You are on the list. We will write when there is a build worth your time.'
+                  : 'One email when the beta opens. Nothing else.'}
+              </p>
+            </form>
+          </Reveal>
+
+          <Reveal delay={110} className="md:col-span-5 md:col-start-8">
+            <p className="readout">what people ask it</p>
+            <ul className="mt-5">
+              {asks.map((a) => (
+                <li
+                  key={a}
+                  className="border-t border-line py-4 text-[19px] leading-snug tracking-[-0.02em] text-foreground last:border-b"
+                >
+                  “{a}”
+                </li>
+              ))}
+            </ul>
+          </Reveal>
+        </div>
+      </div>
+
+      <figure className="relative aspect-[16/6] w-full overflow-hidden border-t border-line">
+        <Image
+          src="/images/hero.png"
+          alt="A person in low light holding a phone, its screen lighting their face"
+          fill
+          sizes="100vw"
+          className="object-cover"
+          style={{ filter: 'saturate(0.7) contrast(1.02)' }}
+        />
+      </figure>
+    </section>
+  )
+}

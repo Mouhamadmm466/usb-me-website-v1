@@ -2,93 +2,159 @@
 @import 'tw-animate-css';
 @import 'shadcn/tailwind.css';
 
-@custom-variant dark (&:is(.dark *));
-
 @theme inline {
-  --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
-  --font-serif: var(--font-newsreader), ui-serif, Georgia, serif;
-  --font-mono: var(--font-geist-mono), ui-monospace, monospace;
+  --font-sans: var(--font-dm-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-dm-mono), ui-monospace, monospace;
 
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --color-card: var(--card);
-  --color-card-foreground: var(--card-foreground);
-  --color-popover: var(--popover);
-  --color-popover-foreground: var(--popover-foreground);
-  --color-primary: var(--primary);
-  --color-primary-foreground: var(--primary-foreground);
-  --color-secondary: var(--secondary);
-  --color-secondary-foreground: var(--secondary-foreground);
+  --color-panel: var(--panel);
+  --color-card: var(--panel);
+  --color-card-foreground: var(--foreground);
   --color-muted: var(--muted);
   --color-muted-foreground: var(--muted-foreground);
-  --color-accent: var(--accent);
-  --color-accent-foreground: var(--accent-foreground);
-  --color-destructive: var(--destructive);
-  --color-border: var(--border);
-  --color-input: var(--input);
-  --color-ring: var(--ring);
+  --color-line: var(--line);
+  --color-border: var(--line);
+  --color-input: var(--line);
+  --color-signal: var(--signal);
+  --color-ring: var(--signal);
+  --color-primary: var(--foreground);
+  --color-primary-foreground: var(--background);
 
-  --radius-sm: calc(var(--radius) - 4px);
-  --radius-md: calc(var(--radius) - 2px);
-  --radius-lg: var(--radius);
-  --radius-xl: calc(var(--radius) + 4px);
+  --radius-sm: 6px;
+  --radius-md: 8px;
+  --radius-lg: 10px;
+  --radius-xl: 14px;
 }
 
 :root {
   color-scheme: light;
-  --radius: 0.75rem;
 
-  /* Bright & happy: sky blue + light yellow, editorial */
-  --background: oklch(0.98 0.034 101);
-  --foreground: oklch(0.31 0.062 256);
-
-  --card: oklch(0.995 0.012 220);
-  --card-foreground: oklch(0.31 0.062 256);
-
-  --popover: oklch(0.995 0.012 220);
-  --popover-foreground: oklch(0.31 0.062 256);
-
-  --primary: oklch(0.655 0.148 240);
-  --primary-foreground: oklch(0.99 0.012 240);
-
-  --secondary: oklch(0.935 0.082 101);
-  --secondary-foreground: oklch(0.31 0.062 256);
-
-  --muted: oklch(0.955 0.03 224);
-  --muted-foreground: oklch(0.505 0.058 252);
-
-  --accent: oklch(0.905 0.104 101);
-  --accent-foreground: oklch(0.31 0.062 256);
-
-  --destructive: oklch(0.577 0.198 27);
-
-  --border: oklch(0.885 0.036 236);
-  --input: oklch(0.885 0.036 236);
-  --ring: oklch(0.655 0.148 240);
+  /* Cool paper + ink. One signal colour, spent sparingly. */
+  --background: #fbfbfc;
+  --panel: #f1f3f4;
+  --panel-deep: #e8ebec;
+  --foreground: #0e1114;
+  --muted: #f1f3f4;
+  --muted-foreground: #6b7378;
+  --line: #dfe3e5;
+  --line-soft: #eaedee;
+  --signal: #1b3bff;
 }
 
 @layer base {
   * {
-    @apply border-border outline-ring/50;
+    border-color: var(--line);
+  }
+  html {
+    scroll-behavior: smooth;
   }
   body {
-    @apply bg-background text-foreground;
-    font-feature-settings: 'kern' 1, 'liga' 1;
+    background: var(--background);
+    color: var(--foreground);
+    font-feature-settings: 'kern' 1, 'liga' 1, 'cv05' 1;
+    -webkit-font-smoothing: antialiased;
   }
   ::selection {
-    background: var(--foreground);
-    color: var(--background);
+    background: var(--signal);
+    color: #fff;
+  }
+  :focus-visible {
+    outline: 2px solid var(--signal);
+    outline-offset: 3px;
+    border-radius: 2px;
   }
 }
 
 @layer utilities {
-  .grain::after {
+  /* The page's structural spine: a hairline grid that frames every section. */
+  .rail {
+    max-width: 1180px;
+    margin-inline: auto;
+    padding-inline: 20px;
+  }
+  @media (min-width: 640px) {
+    .rail { padding-inline: 40px; }
+  }
+
+  .rail-edges {
+    position: relative;
+  }
+  .rail-edges::before,
+  .rail-edges::after {
     content: '';
     position: absolute;
-    inset: 0;
+    top: 0;
+    bottom: 0;
+    width: 1px;
+    background: var(--line);
     pointer-events: none;
-    opacity: 0.16;
-    mix-blend-mode: multiply;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
   }
+  .rail-edges::before { left: 20px; }
+  .rail-edges::after { right: 20px; }
+  @media (min-width: 640px) {
+    .rail-edges::before { left: 40px; }
+    .rail-edges::after { right: 40px; }
+  }
+
+  .display {
+    letter-spacing: -0.035em;
+    line-height: 0.98;
+    font-weight: 400;
+  }
+  .display-sm {
+    letter-spacing: -0.028em;
+    line-height: 1.06;
+    font-weight: 400;
+  }
+
+  .readout {
+    font-family: var(--font-mono), ui-monospace, monospace;
+    font-size: 11px;
+    letter-spacing: 0.04em;
+    color: var(--muted-foreground);
+  }
+
+  .hairline {
+    height: 1px;
+    background: var(--line);
+  }
+
+  /* Reveal — one gesture, reused, not a per-card flourish. */
+  .reveal {
+    opacity: 0;
+    transform: translateY(14px);
+    transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1),
+      transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .reveal[data-shown='true'] {
+    opacity: 1;
+    transform: none;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    .reveal { opacity: 1; transform: none; transition: none; }
+    *, *::before, *::after {
+      animation-duration: 0.001ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.001ms !important;
+    }
+  }
+}
+
+@layer utilities {
+  @keyframes voice {
+    0%, 100% { transform: scaleY(0.12); }
+    50% { transform: scaleY(1); }
+  }
+  .voice-bar {
+    transform-origin: center;
+    animation: voice 900ms ease-in-out infinite;
+  }
+  @keyframes caret {
+    0%, 45% { opacity: 1; }
+    55%, 100% { opacity: 0; }
+  }
+  .caret { animation: caret 1.05s step-end infinite; }
 }

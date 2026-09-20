@@ -1,89 +1,93 @@
 'use client'
 
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Wordmark } from '@/components/wordmark'
 
 const links = [
-  { label: 'How it works', href: '#how' },
+  { label: 'What it does', href: '#work' },
   { label: 'Memory', href: '#memory' },
-  { label: 'Local-first', href: '#local' },
-  { label: 'Privacy', href: '#privacy' },
+  { label: 'On device', href: '#device' },
+  { label: 'Control', href: '#control' },
 ]
 
 export function SiteNav() {
   const [open, setOpen] = useState(false)
+  const [lifted, setLifted] = useState(false)
+
+  useEffect(() => {
+    const onScroll = () => setLifted(window.scrollY > 8)
+    onScroll()
+    window.addEventListener('scroll', onScroll, { passive: true })
+    return () => window.removeEventListener('scroll', onScroll)
+  }, [])
 
   return (
-    <header className="sticky top-0 z-50 border-b border-border/60 bg-background/80 backdrop-blur-md">
-      <nav className="mx-auto flex h-16 max-w-6xl items-center justify-between gap-6 px-5 sm:px-8">
-        <a href="#top" className="shrink-0" aria-label="Kin home">
-          <Wordmark />
-        </a>
-
-        <ul className="hidden items-center gap-8 md:flex">
-          {links.map((l) => (
-            <li key={l.href}>
-              <a
-                href={l.href}
-                className="text-sm text-muted-foreground transition-colors hover:text-foreground"
-              >
-                {l.label}
-              </a>
-            </li>
-          ))}
-        </ul>
-
-        <div className="hidden items-center gap-2 md:flex">
-          <a
-            href="#privacy"
-            className="rounded-full px-4 py-2 text-sm text-foreground transition-colors hover:bg-secondary"
-          >
-            Request access
+    <header
+      className="sticky top-0 z-50 bg-background/85 backdrop-blur-md transition-colors duration-300"
+      style={{ borderBottom: `1px solid ${lifted ? 'var(--line)' : 'transparent'}` }}
+    >
+      <nav className="rail">
+        <div className="flex h-[72px] items-center justify-between gap-6 px-5 sm:px-10">
+          <a href="#top" aria-label="usb-me home" className="shrink-0">
+            <Wordmark />
           </a>
-          <a
-            href="#download"
-            className="rounded-full bg-primary px-4 py-2 text-sm text-primary-foreground transition-opacity hover:opacity-90"
-          >
-            Get Kin
-          </a>
-        </div>
 
-        <button
-          type="button"
-          onClick={() => setOpen((v) => !v)}
-          className="inline-flex h-9 w-9 items-center justify-center rounded-full text-foreground md:hidden"
-          aria-label="Toggle menu"
-          aria-expanded={open}
-        >
-          <span className="sr-only">Menu</span>
-          <div className="flex flex-col gap-[5px]">
-            <span className="block h-px w-5 bg-foreground" />
-            <span className="block h-px w-5 bg-foreground" />
-          </div>
-        </button>
-      </nav>
-
-      {open && (
-        <div className="border-t border-border/60 md:hidden">
-          <ul className="mx-auto flex max-w-6xl flex-col px-5 py-3 sm:px-8">
+          <ul className="hidden items-center gap-9 md:flex">
             {links.map((l) => (
               <li key={l.href}>
                 <a
                   href={l.href}
-                  onClick={() => setOpen(false)}
-                  className="block py-2 text-sm text-muted-foreground"
+                  className="text-[14px] text-muted-foreground transition-colors duration-200 hover:text-foreground"
                 >
                   {l.label}
                 </a>
               </li>
             ))}
-            <li className="mt-2">
+          </ul>
+
+          <a
+            href="#access"
+            className="hidden rounded-lg bg-foreground px-4 py-2 text-[14px] font-medium text-background transition-transform duration-200 hover:-translate-y-px md:inline-flex"
+          >
+            Get early access
+          </a>
+
+          <button
+            type="button"
+            onClick={() => setOpen((v) => !v)}
+            aria-expanded={open}
+            aria-label={open ? 'Close menu' : 'Open menu'}
+            className="inline-flex h-9 w-9 items-center justify-center rounded-lg border border-line md:hidden"
+          >
+            <span className="flex flex-col gap-[5px]">
+              <span className="block h-px w-4 bg-foreground" />
+              <span className="block h-px w-4 bg-foreground" />
+            </span>
+          </button>
+        </div>
+      </nav>
+
+      {open && (
+        <div className="border-t border-line md:hidden">
+          <ul className="rail flex flex-col px-5 py-3 sm:px-10">
+            {links.map((l) => (
+              <li key={l.href}>
+                <a
+                  href={l.href}
+                  onClick={() => setOpen(false)}
+                  className="block py-2.5 text-[15px] text-muted-foreground"
+                >
+                  {l.label}
+                </a>
+              </li>
+            ))}
+            <li className="py-3">
               <a
-                href="#download"
+                href="#access"
                 onClick={() => setOpen(false)}
-                className="inline-flex rounded-full bg-primary px-4 py-2 text-sm text-primary-foreground"
+                className="inline-flex rounded-lg bg-foreground px-4 py-2.5 text-[15px] font-medium text-background"
               >
-                Get Kin
+                Get early access
               </a>
             </li>
           </ul>
