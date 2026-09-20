@@ -5,6 +5,7 @@ import { Ladder } from '@/components/ladder'
 import { Pipeline } from '@/components/pipeline'
 import { Memory } from '@/components/memory'
 import { Device } from '@/components/device'
+import { Benchmark } from '@/components/benchmark'
 import { Workspace } from '@/components/workspace'
 import { Control } from '@/components/control'
 import { Access } from '@/components/access'
@@ -21,6 +22,7 @@ export default function Page() {
         <Pipeline />
         <Memory />
         <Device />
+        <Benchmark />
         <Workspace />
         <Control />
         <Access />

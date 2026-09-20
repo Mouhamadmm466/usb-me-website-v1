@@ -8,6 +8,7 @@ const groups = [
       { label: 'How it works', href: '#how' },
       { label: 'Memory', href: '#memory' },
       { label: 'Your phone', href: '#device' },
+      { label: 'Evidence', href: '#evidence' },
     ],
   },
   {
