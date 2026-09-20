@@ -11,8 +11,9 @@
   --color-panel: var(--panel);
   --color-card: var(--panel);
   --color-card-foreground: var(--foreground);
-  --color-muted: var(--muted);
+  --color-muted: var(--panel);
   --color-muted-foreground: var(--muted-foreground);
+  --color-dim: var(--dim);
   --color-line: var(--line);
   --color-border: var(--line);
   --color-input: var(--line);
@@ -21,25 +22,28 @@
   --color-primary: var(--foreground);
   --color-primary-foreground: var(--background);
 
-  --radius-sm: 6px;
-  --radius-md: 8px;
-  --radius-lg: 10px;
-  --radius-xl: 14px;
+  --radius-sm: 8px;
+  --radius-md: 10px;
+  --radius-lg: 14px;
+  --radius-xl: 18px;
 }
 
 :root {
-  color-scheme: light;
+  color-scheme: dark;
 
-  /* Cool paper + ink. One signal colour, spent sparingly. */
-  --background: #fbfbfc;
-  --panel: #f1f3f4;
-  --panel-deep: #e8ebec;
-  --foreground: #0e1114;
-  --muted: #f1f3f4;
-  --muted-foreground: #6b7378;
-  --line: #dfe3e5;
-  --line-soft: #eaedee;
-  --signal: #1b3bff;
+  --background: #08090c;
+  --panel: rgba(255, 255, 255, 0.028);
+  --panel-hi: rgba(255, 255, 255, 0.055);
+  --foreground: #f4f6f8;
+  --muted-foreground: #8b939d;
+  --dim: #5d646d;
+  --line: rgba(255, 255, 255, 0.085);
+  --line-hi: rgba(255, 255, 255, 0.16);
+  --signal: #5b7cff;
+  --signal-dim: rgba(91, 124, 255, 0.16);
+
+  --ease: cubic-bezier(0.22, 0.61, 0.36, 1);
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 @layer base {
@@ -52,8 +56,9 @@
   body {
     background: var(--background);
     color: var(--foreground);
-    font-feature-settings: 'kern' 1, 'liga' 1, 'cv05' 1;
+    font-feature-settings: 'kern' 1, 'liga' 1;
     -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
   }
   ::selection {
     background: var(--signal);
@@ -62,13 +67,50 @@
   :focus-visible {
     outline: 2px solid var(--signal);
     outline-offset: 3px;
-    border-radius: 2px;
+    border-radius: 3px;
   }
 }
 
 @layer utilities {
-  /* The page's structural spine: a hairline grid that frames every section. */
+  /* Ambient light instead of alternating bands. One continuous canvas. */
+  .ambient {
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    overflow: hidden;
+  }
+  .ambient::before,
+  .ambient::after {
+    content: '';
+    position: absolute;
+    border-radius: 9999px;
+    filter: blur(120px);
+  }
+  .ambient::before {
+    width: 70vw;
+    height: 70vw;
+    top: -28vw;
+    left: -12vw;
+    background: radial-gradient(circle, rgba(91, 124, 255, 0.13), transparent 68%);
+    animation: drift 34s var(--ease) infinite alternate;
+  }
+  .ambient::after {
+    width: 58vw;
+    height: 58vw;
+    top: 42vh;
+    right: -18vw;
+    background: radial-gradient(circle, rgba(120, 90, 255, 0.085), transparent 68%);
+    animation: drift 44s var(--ease) infinite alternate-reverse;
+  }
+  @keyframes drift {
+    from { transform: translate3d(0, 0, 0) scale(1); }
+    to { transform: translate3d(5vw, 7vh, 0) scale(1.14); }
+  }
+
   .rail {
+    position: relative;
+    z-index: 1;
     max-width: 1180px;
     margin-inline: auto;
     padding-inline: 20px;
@@ -77,9 +119,6 @@
     .rail { padding-inline: 40px; }
   }
 
-  .rail-edges {
-    position: relative;
-  }
   .rail-edges::before,
   .rail-edges::after {
     content: '';
@@ -87,7 +126,13 @@
     top: 0;
     bottom: 0;
     width: 1px;
-    background: var(--line);
+    background: linear-gradient(
+      to bottom,
+      transparent,
+      var(--line) 12%,
+      var(--line) 88%,
+      transparent
+    );
     pointer-events: none;
   }
   .rail-edges::before { left: 20px; }
@@ -98,63 +143,135 @@
   }
 
   .display {
-    letter-spacing: -0.035em;
-    line-height: 0.98;
+    letter-spacing: -0.038em;
+    line-height: 0.97;
     font-weight: 400;
   }
   .display-sm {
-    letter-spacing: -0.028em;
-    line-height: 1.06;
+    letter-spacing: -0.03em;
+    line-height: 1.05;
     font-weight: 400;
   }
 
   .readout {
     font-family: var(--font-mono), ui-monospace, monospace;
     font-size: 11px;
-    letter-spacing: 0.04em;
-    color: var(--muted-foreground);
+    letter-spacing: 0.05em;
+    color: var(--dim);
   }
 
-  .hairline {
+  /* Raised surface: faint fill, lit top edge, brightens on hover. */
+  .surface {
+    background: var(--panel);
+    border: 1px solid var(--line);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.05);
+    transition: border-color 450ms var(--ease), background 450ms var(--ease);
+  }
+  .surface-lift:hover {
+    border-color: var(--line-hi);
+    background: var(--panel-hi);
+  }
+
+  .btn {
+    position: relative;
+    border-radius: 10px;
+    transition:
+      transform 400ms var(--ease-out),
+      box-shadow 400ms var(--ease-out),
+      background 400ms var(--ease),
+      border-color 400ms var(--ease);
+  }
+  .btn:hover { transform: translateY(-2px); }
+  .btn:active { transform: translateY(0); transition-duration: 90ms; }
+
+  .btn-solid {
+    background: var(--foreground);
+    color: var(--background);
+  }
+  .btn-solid:hover {
+    box-shadow: 0 10px 34px -12px rgba(244, 246, 248, 0.42);
+  }
+  .btn-ghost {
+    border: 1px solid var(--line);
+    color: var(--foreground);
+  }
+  .btn-ghost:hover {
+    border-color: var(--line-hi);
+    background: var(--panel-hi);
+  }
+
+  .underline-grow {
+    position: relative;
+  }
+  .underline-grow::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: -4px;
     height: 1px;
-    background: var(--line);
+    background: currentColor;
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 500ms var(--ease-out);
   }
+  .underline-grow:hover::after { transform: scaleX(1); }
 
-  /* Reveal — one gesture, reused, not a per-card flourish. */
+  /* One reveal gesture, at section granularity. */
   .reveal {
     opacity: 0;
-    transform: translateY(14px);
-    transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1),
-      transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+    transform: translateY(18px);
+    transition:
+      opacity 900ms var(--ease-out),
+      transform 900ms var(--ease-out);
   }
   .reveal[data-shown='true'] {
     opacity: 1;
     transform: none;
   }
 
-  @media (prefers-reduced-motion: reduce) {
-    html { scroll-behavior: auto; }
-    .reveal { opacity: 1; transform: none; transition: none; }
-    *, *::before, *::after {
-      animation-duration: 0.001ms !important;
-      animation-iteration-count: 1 !important;
-      transition-duration: 0.001ms !important;
-    }
+  /* Headline settles word by word on first paint. */
+  .word {
+    display: inline-block;
+    opacity: 0;
+    transform: translateY(0.34em);
+    animation: settle 1100ms var(--ease-out) forwards;
   }
-}
+  @keyframes settle {
+    to { opacity: 1; transform: none; }
+  }
 
-@layer utilities {
   @keyframes voice {
-    0%, 100% { transform: scaleY(0.12); }
+    0%, 100% { transform: scaleY(0.14); }
     50% { transform: scaleY(1); }
   }
   .voice-bar {
     transform-origin: center;
     animation: voice 900ms ease-in-out infinite;
   }
+
   @keyframes caret {
     0%, 45% { opacity: 1; }
     55%, 100% { opacity: 0; }
   }
   .caret { animation: caret 1.05s step-end infinite; }
+
+  @keyframes pulse-ring {
+    0% { transform: scale(1); opacity: 0.55; }
+    100% { transform: scale(2.6); opacity: 0; }
+  }
+  .pulse-ring { animation: pulse-ring 1900ms var(--ease-out) infinite; }
+
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    .reveal { opacity: 1; transform: none; transition: none; }
+    .word { opacity: 1; transform: none; animation: none; }
+    .ambient::before, .ambient::after { animation: none; }
+    .btn:hover { transform: none; }
+    *, *::before, *::after {
+      animation-duration: 0.001ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.001ms !important;
+    }
+  }
 }

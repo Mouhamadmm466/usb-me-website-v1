@@ -16,16 +16,16 @@ export function Access() {
   const [sent, setSent] = useState(false)
 
   return (
-    <section id="access" className="border-t border-line">
+    <section id="access" className="border-t">
       <div className="rail rail-edges py-24 md:py-32">
         <div className="grid gap-14 px-5 sm:px-10 md:grid-cols-12 md:gap-12">
           <Reveal className="md:col-span-6">
-            <h2 className="display max-w-[14ch] text-[clamp(2.4rem,5.6vw,4.2rem)]">
+            <h2 className="display max-w-[13ch] text-[clamp(2.4rem,5.6vw,4.2rem)]">
               Six months in, it already knows.
             </h2>
-            <p className="mt-7 max-w-[46ch] text-[18px] leading-[1.6] text-muted-foreground">
+            <p className="mt-7 max-w-[44ch] text-[18px] leading-[1.65] text-muted-foreground">
               You pick up your phone and there is no catching up to do. Less
-              like opening an app, more like carrying on. We are letting the
+              like opening an app. More like carrying on. We are letting the
               first people in soon.
             </p>
 
@@ -37,9 +37,7 @@ export function Access() {
               }}
             >
               <div className="flex flex-col gap-3 sm:flex-row">
-                <label htmlFor="email" className="sr-only">
-                  Email address
-                </label>
+                <label htmlFor="email" className="sr-only">Email address</label>
                 <input
                   id="email"
                   type="email"
@@ -47,20 +45,15 @@ export function Access() {
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   placeholder="you@example.com"
-                  className="min-w-0 flex-1 rounded-lg border border-line bg-panel px-4 py-3 text-[15px] text-foreground placeholder:text-muted-foreground"
+                  className="surface min-w-0 flex-1 rounded-[10px] px-4 py-3 text-[15px] text-foreground transition-colors duration-500 placeholder:text-dim focus:border-[color:var(--line-hi)]"
                 />
-                <button
-                  type="submit"
-                  className="rounded-lg bg-foreground px-5 py-3 text-[15px] font-medium text-background transition-transform duration-200 hover:-translate-y-px"
-                >
+                <button type="submit" className="btn btn-solid px-5 py-3 text-[15px] font-medium">
                   Request access
                 </button>
               </div>
               <p
-                className="mt-3 text-[14px]"
-                style={{
-                  color: sent ? 'var(--signal)' : 'var(--muted-foreground)',
-                }}
+                className="mt-3 text-[14px] transition-colors duration-500"
+                style={{ color: sent ? 'var(--signal)' : 'var(--muted-foreground)' }}
                 role={sent ? 'status' : undefined}
               >
                 {sent
@@ -76,7 +69,7 @@ export function Access() {
               {asks.map((a) => (
                 <li
                   key={a}
-                  className="border-t border-line py-4 text-[19px] leading-snug tracking-[-0.02em] text-foreground last:border-b"
+                  className="border-t py-4 text-[19px] leading-snug tracking-[-0.025em] text-foreground last:border-b"
                 >
                   “{a}”
                 </li>
@@ -86,14 +79,22 @@ export function Access() {
         </div>
       </div>
 
-      <figure className="relative aspect-[16/6] w-full overflow-hidden border-t border-line">
+      <figure className="relative aspect-[16/6] w-full overflow-hidden border-t">
         <Image
           src="/images/hero.png"
           alt="A person in low light holding a phone, its screen lighting their face"
           fill
           sizes="100vw"
           className="object-cover"
-          style={{ filter: 'saturate(0.7) contrast(1.02)' }}
+          style={{ filter: 'brightness(0.7) contrast(1.1)' }}
+        />
+        <span
+          aria-hidden="true"
+          className="absolute inset-0"
+          style={{
+            background:
+              'linear-gradient(to bottom, rgba(8,9,12,0.85), rgba(8,9,12,0.25) 45%, rgba(8,9,12,0.9))',
+          }}
         />
       </figure>
     </section>

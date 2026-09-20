@@ -1,6 +1,7 @@
 'use client'
 
 import { useEffect, useMemo, useRef, useState } from 'react'
+import { useReducedMotion } from '@/lib/use-reduced-motion'
 
 const SPOKEN =
   'I need to meet Sarah before our demo. Find us a good time and get me ready.'
@@ -8,23 +9,23 @@ const SPOKEN =
 const STEPS = [
   {
     head: 'Found Sarah Okonkwo',
-    body: 'Works with you on the Nemotron benchmark. Last spoke Tuesday.',
+    body: 'She works with you on the benchmark. You last spoke Tuesday.',
   },
   {
-    head: 'Located the demo',
-    body: 'Thursday, 9:00 AM. Investor walkthrough, 30 minutes.',
+    head: 'Found the demo',
+    body: 'Thursday at 9 in the morning. Investor walkthrough, thirty minutes.',
   },
   {
-    head: 'Both of you are free Wednesday, 4:30 PM',
-    body: 'Only slot before the demo that clears your focus block.',
+    head: 'You are both free Wednesday at 4:30',
+    body: 'The only slot before the demo that keeps your focus block.',
   },
   {
     head: 'Wrote your brief',
-    body: 'Three open decisions, two blockers, and what changed since Tuesday.',
+    body: 'Three open decisions. Two blockers. What changed since Tuesday.',
   },
   {
     head: 'Waiting on you',
-    body: 'Sarah has not been messaged. Nothing leaves the phone until you say so.',
+    body: 'Sarah has not been messaged. Nothing leaves your phone until you say so.',
     pending: true,
   },
 ]
@@ -33,20 +34,8 @@ const BARS = 24
 
 type Phase = 'listening' | 'working' | 'settled'
 
-function usePrefersReducedMotion() {
-  const [reduced, setReduced] = useState(false)
-  useEffect(() => {
-    const mq = window.matchMedia('(prefers-reduced-motion: reduce)')
-    setReduced(mq.matches)
-    const on = () => setReduced(mq.matches)
-    mq.addEventListener('change', on)
-    return () => mq.removeEventListener('change', on)
-  }, [])
-  return reduced
-}
-
 export function Trace() {
-  const reduced = usePrefersReducedMotion()
+  const reduced = useReducedMotion()
   const [phase, setPhase] = useState<Phase>('listening')
   const [typed, setTyped] = useState(0)
   const [revealed, setRevealed] = useState(0)
@@ -81,21 +70,22 @@ export function Trace() {
         setPhase('listening')
         setRevealed(0)
         setTyped(0)
+        await wait(900)
         for (let i = 1; i <= SPOKEN.length; i++) {
           if (cancelled) return
           setTyped(i)
           await wait(SPOKEN[i - 1] === ' ' ? 46 : 26)
         }
-        await wait(500)
+        await wait(600)
         if (cancelled) return
         setPhase('working')
         for (let i = 1; i <= STEPS.length; i++) {
-          await wait(i === 1 ? 700 : 900)
+          await wait(i === 1 ? 750 : 950)
           if (cancelled) return
           setRevealed(i)
         }
         setPhase('settled')
-        await wait(6500)
+        await wait(7000)
       }
     }
     run()
@@ -110,9 +100,8 @@ export function Trace() {
   const listening = phase === 'listening'
 
   return (
-    <div className="overflow-hidden rounded-xl border border-line bg-panel">
-      {/* Spoken input */}
-      <div className="flex flex-col gap-5 border-b border-line px-6 py-6 sm:flex-row sm:items-center sm:gap-7 sm:px-8">
+    <div className="surface overflow-hidden rounded-xl">
+      <div className="flex flex-col gap-5 border-b px-6 py-6 sm:flex-row sm:items-center sm:gap-7 sm:px-8">
         <div
           aria-hidden="true"
           className="flex h-8 w-[117px] shrink-0 items-center gap-[3px]"
@@ -127,9 +116,9 @@ export function Trace() {
                 width: 2,
                 height: `${Math.round(s.peak * 30)}px`,
                 borderRadius: 2,
-                background: listening ? 'var(--signal)' : 'var(--line)',
-                transform: listening ? undefined : 'scaleY(0.12)',
-                transition: 'background 400ms ease, transform 400ms ease',
+                background: listening ? 'var(--signal)' : 'var(--line-hi)',
+                transform: listening ? undefined : 'scaleY(0.14)',
+                transition: 'background 600ms var(--ease), transform 600ms var(--ease)',
                 animationDelay: `${s.delay}ms`,
               }}
             />
@@ -142,31 +131,36 @@ export function Trace() {
           {listening && (
             <span
               aria-hidden="true"
-              className="caret ml-0.5 inline-block h-[1.05em] w-[2px] translate-y-[0.16em] bg-signal align-middle"
+              className="caret ml-0.5 inline-block h-[1.05em] w-[2px] translate-y-[0.16em] align-middle"
+              style={{ background: 'var(--signal)' }}
             />
           )}
         </p>
       </div>
 
-      {/* What it actually did */}
-      <ol className="divide-y divide-line">
+      <ol>
         {STEPS.map((step, i) => {
           const on = i < revealed
           return (
             <li
               key={step.head}
-              className="flex items-start gap-4 px-6 py-4 transition-opacity duration-500 sm:px-8"
-              style={{ opacity: on ? 1 : 0.18 }}
+              className="flex items-start gap-4 border-b px-6 py-4 last:border-b-0 sm:px-8"
+              style={{
+                opacity: on ? 1 : 0.22,
+                transform: on ? 'none' : 'translateY(4px)',
+                transition:
+                  'opacity 700ms var(--ease-out), transform 700ms var(--ease-out)',
+              }}
             >
               <span
                 aria-hidden="true"
-                className="mt-[3px] flex h-[18px] w-[18px] shrink-0 items-center justify-center rounded-full border transition-colors duration-500"
+                className="mt-[3px] flex h-[18px] w-[18px] shrink-0 items-center justify-center rounded-full border transition-colors duration-700"
                 style={{
                   borderColor: on
                     ? step.pending
                       ? 'var(--signal)'
                       : 'var(--foreground)'
-                    : 'var(--line)',
+                    : 'var(--line-hi)',
                   background:
                     on && !step.pending ? 'var(--foreground)' : 'transparent',
                 }}
@@ -202,12 +196,12 @@ export function Trace() {
         })}
       </ol>
 
-      <div className="flex items-center justify-between gap-4 border-t border-line px-6 py-3 sm:px-8">
+      <div className="flex items-center justify-between gap-4 border-t px-6 py-3 sm:px-8">
         <span className="readout">
           {phase === 'listening'
             ? 'listening'
             : phase === 'working'
-              ? 'reasoning on device'
+              ? 'thinking on your phone'
               : 'idle'}
         </span>
         <span className="readout">no network used</span>

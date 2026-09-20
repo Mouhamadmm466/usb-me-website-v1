@@ -15,9 +15,9 @@ const dmMono = DM_Mono({
   weight: ['300', '400', '500'],
 })
 
-const title = 'usb-me — Own your intelligence'
+const title = 'usb-me. Own your intelligence.'
 const description =
-  'usb-me is a personal intelligence that runs on your phone. It learns the parts of your life you choose to share, understands what you are trying to get done, and does real work for you. Powered on-device by NVIDIA Nemotron.'
+  'usb-me is a personal intelligence that lives on your phone. You talk to it. It learns the parts of your life you choose to share, works out what you are trying to get done, and does it. Powered by NVIDIA Nemotron, running on your device.'
 
 export const metadata: Metadata = {
   title,
@@ -35,8 +35,8 @@ export const metadata: Metadata = {
 }
 
 export const viewport: Viewport = {
-  colorScheme: 'light',
-  themeColor: '#fbfbfc',
+  colorScheme: 'dark',
+  themeColor: '#08090c',
 }
 
 export default function RootLayout({

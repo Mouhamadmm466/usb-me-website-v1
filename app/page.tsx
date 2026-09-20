@@ -2,6 +2,7 @@ import { SiteNav } from '@/components/site-nav'
 import { Hero } from '@/components/hero'
 import { Thesis } from '@/components/thesis'
 import { Ladder } from '@/components/ladder'
+import { Pipeline } from '@/components/pipeline'
 import { Memory } from '@/components/memory'
 import { Device } from '@/components/device'
 import { Workspace } from '@/components/workspace'
@@ -11,12 +12,14 @@ import { SiteFooter } from '@/components/site-footer'
 
 export default function Page() {
   return (
-    <div className="min-h-dvh bg-background text-foreground">
+    <div className="relative min-h-dvh">
+      <div aria-hidden="true" className="ambient" />
       <SiteNav />
-      <main>
+      <main className="relative z-[1]">
         <Hero />
         <Thesis />
         <Ladder />
+        <Pipeline />
         <Memory />
         <Device />
         <Workspace />
