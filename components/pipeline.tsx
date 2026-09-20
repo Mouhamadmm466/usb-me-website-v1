@@ -102,7 +102,7 @@ export function Pipeline() {
                   setStarted(true)
                 }
               }}
-              className="btn btn-ghost inline-flex shrink-0 items-center gap-3 px-5 py-3 text-[15px]"
+              className="btn btn-soft inline-flex shrink-0 items-center gap-3 px-5 py-3 text-[15px]"
               aria-label={playing ? 'Pause the walkthrough' : 'Play the walkthrough'}
             >
               <span className="relative flex h-2.5 w-2.5 items-center justify-center">

@@ -150,12 +150,12 @@
 
   .btn {
     position: relative;
-    border-radius: 8px;
+    border-radius: 9999px;
     transition:
       transform 400ms var(--ease-out),
       background 400ms var(--ease),
       color 400ms var(--ease),
-      border-color 400ms var(--ease);
+      opacity 400ms var(--ease);
   }
   .btn:hover { transform: translateY(-2px); }
   .btn:active { transform: translateY(0); transition-duration: 90ms; }
@@ -165,6 +165,13 @@
     color: var(--background);
   }
   .btn-solid:hover { opacity: 0.86; }
+
+  /* Soft companion to the solid pill: a fill, never an outline. */
+  .btn-soft {
+    background: var(--panel-hi);
+    color: var(--foreground);
+  }
+  .btn-soft:hover { background: var(--line); }
 
   .btn-ghost {
     border: 1px solid var(--line-hi);
