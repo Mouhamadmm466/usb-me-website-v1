@@ -1,6 +1,7 @@
 'use client'
 
 import { useState } from 'react'
+import { MaskText } from '@/components/mask-text'
 import { Reveal } from '@/components/reveal'
 import { SectionLabel } from '@/components/section-label'
 
@@ -34,12 +35,18 @@ export function Control() {
   return (
     <section id="control" className="ink-block">
       <div className="rail rail-edges grid gap-14 px-5 py-24 sm:px-10 md:grid-cols-12 md:gap-12 md:py-32">
-        <Reveal className="md:col-span-5">
+        <div className="md:col-span-5">
+        <Reveal>
           <SectionLabel>Control</SectionLabel>
-          <h2 className="display-sm mt-7 max-w-[16ch] text-[clamp(2rem,4.6vw,3.4rem)]">
-            You decide how far it can reach.
-          </h2>
-          <p className="mt-6 max-w-[46ch] text-[18px] leading-[1.65] text-muted-foreground">
+        </Reveal>
+        <MaskText
+          className="display-sm mt-7 max-w-[16ch] text-[clamp(2rem,4.6vw,3.4rem)]"
+          delay={80}
+        >
+          You decide how far it can reach.
+        </MaskText>
+        <Reveal delay={200}>
+          <p className="max-w-[46ch] text-[18px] leading-[1.65] text-muted-foreground">
             We will not claim nothing ever leaves your phone. Sending an email
             means sending an email. What we promise is that only the part a task
             needs goes out. Your memory never travels just because one tool
@@ -49,6 +56,7 @@ export function Control() {
             Before it does anything that touches another person, it asks.
           </p>
         </Reveal>
+        </div>
 
         <Reveal delay={120} className="md:col-span-7">
           <div className="surface overflow-hidden rounded-xl">

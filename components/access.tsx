@@ -1,7 +1,8 @@
 'use client'
 
 import { useState } from 'react'
-import Image from 'next/image'
+import { ParallaxImage } from '@/components/parallax-image'
+import { MaskText } from '@/components/mask-text'
 import { Reveal } from '@/components/reveal'
 
 const asks = [
@@ -19,10 +20,11 @@ export function Access() {
     <section id="access" className="border-t">
       <div className="rail rail-edges py-24 md:py-32">
         <div className="grid gap-14 px-5 sm:px-10 md:grid-cols-12 md:gap-12">
-          <Reveal className="md:col-span-6">
-            <h2 className="display max-w-[13ch] text-[clamp(2.4rem,5.6vw,4.2rem)]">
+          <div className="md:col-span-6">
+            <MaskText className="display max-w-[13ch] text-[clamp(2.4rem,5.6vw,4.2rem)]">
               Six months in, it already knows.
-            </h2>
+            </MaskText>
+            <Reveal delay={180}>
             <p className="mt-7 max-w-[44ch] text-[18px] leading-[1.65] text-muted-foreground">
               You pick up your phone and there is no catching up to do. Less
               like opening an app. More like carrying on. We are letting the
@@ -61,7 +63,8 @@ export function Access() {
                   : 'One email when the beta opens. Nothing else.'}
               </p>
             </form>
-          </Reveal>
+            </Reveal>
+          </div>
 
           <Reveal delay={110} className="md:col-span-5 md:col-start-8">
             <p className="readout">what people ask it</p>
@@ -79,16 +82,13 @@ export function Access() {
         </div>
       </div>
 
-      <figure className="relative aspect-[16/6] w-full overflow-hidden border-t">
-        <Image
-          src="/images/hero.png"
-          alt="A person in low light holding a phone, its screen lighting their face"
-          fill
-          sizes="100vw"
-          className="object-cover"
-          style={{ filter: 'grayscale(1) contrast(1.04)' }}
-        />
-      </figure>
+      <ParallaxImage
+        src="/images/hero.png"
+        alt="A person in low light holding a phone, its screen lighting their face"
+        sizes="100vw"
+        strength={70}
+        className="aspect-[16/6] w-full border-t"
+      />
     </section>
   )
 }

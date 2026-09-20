@@ -1,7 +1,10 @@
 'use client'
 
 import { useState } from 'react'
+import { MaskText } from '@/components/mask-text'
 import { Reveal } from '@/components/reveal'
+import { useInView } from '@/lib/use-in-view'
+import { useReducedMotion } from '@/lib/use-reduced-motion'
 import { SectionLabel } from '@/components/section-label'
 
 type NodeId =
@@ -37,6 +40,9 @@ const edges: { a: NodeId; b: NodeId }[] = [
 
 export function Memory() {
   const [active, setActive] = useState<NodeId | null>(null)
+  const reduced = useReducedMotion()
+  const { ref: figureRef, inView } = useInView<HTMLElement>('0px 0px -20% 0px')
+  const drawn = reduced || inView
 
   const isLit = (id: NodeId) =>
     !active ||
@@ -50,12 +56,18 @@ export function Memory() {
   return (
     <section id="memory" className="rail rail-edges border-t py-24 md:py-32">
       <div className="grid gap-14 px-5 sm:px-10 md:grid-cols-12 md:gap-12">
-        <Reveal className="md:col-span-5">
+        <div className="md:col-span-5">
+        <Reveal>
           <SectionLabel>Memory</SectionLabel>
-          <h2 className="display-sm mt-7 max-w-[16ch] text-[clamp(2rem,4.6vw,3.4rem)]">
-            It knows how your world fits together.
-          </h2>
-          <p className="mt-6 max-w-[46ch] text-[18px] leading-[1.65] text-muted-foreground">
+        </Reveal>
+        <MaskText
+          className="display-sm mt-7 max-w-[16ch] text-[clamp(2rem,4.6vw,3.4rem)]"
+          delay={80}
+        >
+          It knows how your world fits together.
+        </MaskText>
+        <Reveal delay={200}>
+          <p className="max-w-[46ch] text-[18px] leading-[1.65] text-muted-foreground">
             Not a long history of everything you ever typed. usb-me keeps a real
             picture of your life. People, projects, goals, documents, decisions,
             promises, and how they connect. That is what lets it answer where
@@ -66,9 +78,11 @@ export function Memory() {
             phone, and it comes with you when the models get better.
           </p>
         </Reveal>
+        </div>
 
         <Reveal delay={120} className="md:col-span-7">
           <figure
+            ref={figureRef}
             className="surface overflow-hidden rounded-xl"
             onMouseLeave={() => setActive(null)}
           >
@@ -78,10 +92,11 @@ export function Memory() {
               role="img"
               aria-label="A piece of a personal knowledge graph linking people, a project, a demo, a goal, a decision and a document."
             >
-              {edges.map((e) => {
+              {edges.map((e, i) => {
                 const A = nodes[e.a]
                 const B = nodes[e.b]
                 const touched = active === e.a || active === e.b
+                const length = Math.hypot(B.x - A.x, B.y - A.y)
                 return (
                   <line
                     key={`${e.a}-${e.b}`}
@@ -89,7 +104,18 @@ export function Memory() {
                     stroke={touched ? 'var(--signal)' : 'var(--line-hi)'}
                     strokeWidth={touched ? 1.5 : 1}
                     opacity={active && !touched ? 0.22 : 1}
-                    style={{ transition: 'stroke 500ms var(--ease), opacity 500ms var(--ease), stroke-width 500ms var(--ease)' }}
+                    strokeDasharray={length}
+                    strokeDashoffset={drawn ? 0 : length}
+                    style={{
+                      transition: [
+                        'stroke 500ms var(--ease)',
+                        'opacity 500ms var(--ease)',
+                        'stroke-width 500ms var(--ease)',
+                        reduced
+                          ? 'none'
+                          : `stroke-dashoffset 900ms var(--ease-out) ${i * 70}ms`,
+                      ].join(', '),
+                    }}
                   />
                 )
               })}
@@ -109,8 +135,10 @@ export function Memory() {
                     onBlur={() => setActive(null)}
                     style={{
                       cursor: 'pointer',
-                      opacity: lit ? 1 : 0.2,
-                      transition: 'opacity 500ms var(--ease)',
+                      opacity: drawn ? (lit ? 1 : 0.2) : 0,
+                      transition: reduced
+                        ? 'none'
+                        : `opacity 600ms var(--ease) ${drawn ? 520 : 0}ms`,
                     }}
                   >
                     <circle

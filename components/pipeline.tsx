@@ -1,6 +1,7 @@
 'use client'
 
 import { useEffect, useState } from 'react'
+import { MaskText } from '@/components/mask-text'
 import { Reveal } from '@/components/reveal'
 import { SectionLabel } from '@/components/section-label'
 import { useReducedMotion } from '@/lib/use-reduced-motion'
@@ -84,9 +85,12 @@ export function Pipeline() {
           <SectionLabel>How it works</SectionLabel>
           <div className="mt-7 flex flex-col gap-7 md:flex-row md:items-end md:justify-between md:gap-10">
             <div>
-              <h2 className="display-sm max-w-[16ch] text-[clamp(2rem,4.6vw,3.4rem)]">
+              <MaskText
+                className="display-sm max-w-[16ch] text-[clamp(2rem,4.6vw,3.4rem)]"
+                delay={60}
+              >
                 Follow one sentence all the way through.
-              </h2>
+              </MaskText>
               <p className="mt-6 max-w-[52ch] text-[18px] leading-[1.6] text-muted-foreground">
                 Six steps happen between you speaking and your phone answering.
                 Play it, or step through them yourself.

@@ -31,10 +31,29 @@ Note that `--signal` is redeclared inside `.ink-block`. Custom properties
 resolve where they are declared, not where they are used, so a token that
 points at `--foreground` has to be restated in any scope that redefines it.
 
-Motion runs off two easing tokens, `--ease` and `--ease-out`. Shared classes:
-`.reveal` for the single scroll gesture, `.word` for the headline settling in
-on first paint, `.surface` and `.surface-lift` for raised panels, `.btn` for
-the lift on buttons, `.underline-grow` for links.
+## Motion
+
+Everything eases off two tokens, `--ease` and `--ease-out`. The gestures, in
+rough order of how loud they are:
+
+- `MaskText` splits a heading into words and lifts each one from behind its own
+  baseline when the heading arrives. It is used on headings only, so the gesture
+  stays rare enough to mean something.
+- The ladder is a stack of sticky frames. Each card pins 26px lower than the one
+  before, so the previous cards leave a visible lip carrying their label, and
+  the whole ladder reads as a stack by the time you reach the bottom. A single
+  rAF throttled scroll listener scales and fades each card as the next one
+  covers it, which is what makes the stack feel physical rather than merely
+  overlapping.
+- `ParallaxImage` holds the frame still and drifts the picture inside it.
+- `Counter` and `ProgressBar` run once when they arrive.
+- The memory graph draws its own edges with `stroke-dashoffset`, then fades the
+  nodes in behind them.
+- The nav carries a hairline scroll progress bar along its lower edge.
+- `.reveal` remains the quiet default for body copy.
+
+Every one of these checks `prefers-reduced-motion` and renders its finished
+state when it is set.
 
 Sections, in page order (`app/page.tsx`):
 

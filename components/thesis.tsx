@@ -1,3 +1,4 @@
+import { MaskText } from '@/components/mask-text'
 import { Reveal } from '@/components/reveal'
 import { SectionLabel } from '@/components/section-label'
 
@@ -7,10 +8,13 @@ export function Thesis() {
       <div className="px-5 sm:px-10">
         <Reveal>
           <SectionLabel>Why we are building this</SectionLabel>
-          <h2 className="display-sm mt-7 max-w-[20ch] text-[clamp(2rem,4.6vw,3.4rem)]">
-            The intelligence that knows you best should be the one you own.
-          </h2>
         </Reveal>
+        <MaskText
+          className="display-sm mt-7 max-w-[20ch] text-[clamp(2rem,4.6vw,3.4rem)]"
+          delay={80}
+        >
+          The intelligence that knows you best should be the one you own.
+        </MaskText>
 
         <Reveal delay={90} className="mt-10 grid gap-10 md:grid-cols-2 md:gap-16">
           <p className="max-w-[52ch] text-[18px] leading-[1.65] text-muted-foreground">

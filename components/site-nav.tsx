@@ -13,12 +13,27 @@ const links = [
 export function SiteNav() {
   const [open, setOpen] = useState(false)
   const [lifted, setLifted] = useState(false)
+  const [progress, setProgress] = useState(0)
 
   useEffect(() => {
-    const onScroll = () => setLifted(window.scrollY > 8)
-    onScroll()
+    let raf = 0
+    const read = () => {
+      raf = 0
+      const max = document.documentElement.scrollHeight - window.innerHeight
+      setLifted(window.scrollY > 8)
+      setProgress(max > 0 ? Math.min(1, window.scrollY / max) : 0)
+    }
+    const onScroll = () => {
+      if (!raf) raf = requestAnimationFrame(read)
+    }
+    read()
     window.addEventListener('scroll', onScroll, { passive: true })
-    return () => window.removeEventListener('scroll', onScroll)
+    window.addEventListener('resize', onScroll)
+    return () => {
+      if (raf) cancelAnimationFrame(raf)
+      window.removeEventListener('scroll', onScroll)
+      window.removeEventListener('resize', onScroll)
+    }
   }, [])
 
   return (
@@ -79,6 +94,17 @@ export function SiteNav() {
           </button>
         </div>
       </nav>
+
+      <span
+        aria-hidden="true"
+        className="absolute inset-x-0 bottom-0 h-px origin-left"
+        style={{
+          background: 'var(--foreground)',
+          transform: `scaleX(${progress})`,
+          opacity: lifted ? 0.85 : 0,
+          transition: 'opacity 500ms var(--ease)',
+        }}
+      />
 
       <div
         className="overflow-hidden border-t md:hidden"

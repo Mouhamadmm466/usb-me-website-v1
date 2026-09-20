@@ -1,4 +1,5 @@
-import Image from 'next/image'
+import { MaskText } from '@/components/mask-text'
+import { ParallaxImage } from '@/components/parallax-image'
 import { Reveal } from '@/components/reveal'
 import { SectionLabel } from '@/components/section-label'
 
@@ -21,25 +22,26 @@ export function Device() {
       <div className="grid gap-14 px-5 sm:px-10 md:grid-cols-12 md:gap-12">
         <Reveal className="md:col-span-6">
           <div className="md:sticky md:top-28">
-          <figure className="surface relative aspect-[4/5] w-full overflow-hidden rounded-xl">
-            <Image
-              src="/images/device.png"
-              alt="A hand holding a phone in soft directional light"
-              fill
-              sizes="(max-width: 768px) 100vw, 560px"
-              className="object-cover"
-              style={{ filter: 'grayscale(1) contrast(1.06)' }}
-            />
-          </figure>
+          <ParallaxImage
+            src="/images/device.png"
+            alt="A hand holding a phone in soft directional light"
+            sizes="(max-width: 768px) 100vw, 560px"
+            className="surface aspect-[4/5] w-full rounded-xl"
+          />
           </div>
         </Reveal>
 
         <div className="md:col-span-6">
           <Reveal>
             <SectionLabel>Your phone</SectionLabel>
-            <h2 className="display-sm mt-7 max-w-[18ch] text-[clamp(2rem,4.6vw,3.4rem)]">
-              The internet is a tool it picks up, not a place it lives.
-            </h2>
+          </Reveal>
+          <MaskText
+            className="display-sm mt-7 max-w-[18ch] text-[clamp(2rem,4.6vw,3.4rem)]"
+            delay={80}
+          >
+            The internet is a tool it picks up, not a place it lives.
+          </MaskText>
+          <Reveal delay={200}>
             <p className="mt-6 max-w-[46ch] text-[18px] leading-[1.65] text-muted-foreground">
               The model, the memory and the thinking all sit on your phone. Most
               of what you ask never needs a connection. When something truly

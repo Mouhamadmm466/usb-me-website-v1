@@ -1,3 +1,6 @@
+import { Counter } from '@/components/counter'
+import { MaskText } from '@/components/mask-text'
+import { ProgressBar } from '@/components/progress-bar'
 import { Reveal } from '@/components/reveal'
 import { SectionLabel } from '@/components/section-label'
 
@@ -27,9 +30,14 @@ export function Workspace() {
       <div className="px-5 sm:px-10">
         <Reveal>
           <SectionLabel>Workspaces</SectionLabel>
-          <h2 className="display-sm mt-7 max-w-[18ch] text-[clamp(2rem,4.6vw,3.4rem)]">
-            Something doing the work, not a folder of chats.
-          </h2>
+        </Reveal>
+        <MaskText
+          className="display-sm mt-7 max-w-[18ch] text-[clamp(2rem,4.6vw,3.4rem)]"
+          delay={80}
+        >
+          Something doing the work, not a folder of chats.
+        </MaskText>
+        <Reveal delay={200}>
           <p className="mt-6 max-w-[52ch] text-[18px] leading-[1.6] text-muted-foreground">
             Anything you care about gets its own space. The people, the open
             tasks, what you decided and why, what moved this week. It is how
@@ -49,9 +57,14 @@ export function Workspace() {
                 Due 20 October, 30 days away
               </p>
             </div>
-            <div className="sm:text-right">
-              <p className="text-[34px] leading-none tracking-[-0.045em]">67%</p>
-              <p className="mt-1.5 text-[15px] text-muted-foreground">
+            <div className="sm:min-w-[190px] sm:text-right">
+              <Counter
+                to={67}
+                suffix="%"
+                className="text-[34px] leading-none tracking-[-0.045em]"
+              />
+              <ProgressBar value={0.67} className="mt-3" />
+              <p className="mt-2.5 text-[15px] text-muted-foreground">
                 Four of six done
               </p>
             </div>
