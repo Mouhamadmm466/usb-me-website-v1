@@ -18,32 +18,52 @@
   --color-border: var(--line);
   --color-input: var(--line);
   --color-signal: var(--signal);
-  --color-ring: var(--signal);
+  --color-ring: var(--foreground);
   --color-primary: var(--foreground);
   --color-primary-foreground: var(--background);
 
-  --radius-sm: 8px;
-  --radius-md: 10px;
-  --radius-lg: 14px;
-  --radius-xl: 18px;
+  --radius-sm: 6px;
+  --radius-md: 8px;
+  --radius-lg: 10px;
+  --radius-xl: 12px;
 }
 
 :root {
-  color-scheme: dark;
+  color-scheme: light;
 
-  --background: #08090c;
-  --panel: rgba(255, 255, 255, 0.028);
-  --panel-hi: rgba(255, 255, 255, 0.055);
-  --foreground: #f4f6f8;
-  --muted-foreground: #8b939d;
-  --dim: #5d646d;
-  --line: rgba(255, 255, 255, 0.085);
-  --line-hi: rgba(255, 255, 255, 0.16);
-  --signal: #5b7cff;
-  --signal-dim: rgba(91, 124, 255, 0.16);
+  /* Paper and ink. Hierarchy comes from alpha, never from a second hue. */
+  --paper: #f8f8f3;
+  --ink: #000000;
+
+  --background: var(--paper);
+  --foreground: var(--ink);
+  --muted-foreground: rgba(0, 0, 0, 0.6);
+  --dim: rgba(0, 0, 0, 0.45);
+  --line: rgba(0, 0, 0, 0.14);
+  --line-hi: rgba(0, 0, 0, 0.3);
+  --panel: rgba(0, 0, 0, 0.022);
+  --panel-hi: rgba(0, 0, 0, 0.05);
+  --signal: var(--foreground);
+  --signal-dim: rgba(0, 0, 0, 0.08);
 
   --ease: cubic-bezier(0.22, 0.61, 0.36, 1);
   --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Contrast comes from whole blocks turning over, not from grey bands. */
+.ink-block {
+  --background: var(--ink);
+  --foreground: var(--paper);
+  --muted-foreground: rgba(248, 248, 243, 0.62);
+  --dim: rgba(248, 248, 243, 0.42);
+  --line: rgba(248, 248, 243, 0.16);
+  --line-hi: rgba(248, 248, 243, 0.34);
+  --panel: rgba(248, 248, 243, 0.04);
+  --panel-hi: rgba(248, 248, 243, 0.09);
+  --signal: var(--foreground);
+  --signal-dim: rgba(248, 248, 243, 0.12);
+  background: var(--ink);
+  color: var(--foreground);
 }
 
 @layer base {
@@ -52,6 +72,7 @@
   }
   html {
     scroll-behavior: smooth;
+    background: var(--paper);
   }
   body {
     background: var(--background);
@@ -61,56 +82,19 @@
     -moz-osx-font-smoothing: grayscale;
   }
   ::selection {
-    background: var(--signal);
-    color: #fff;
+    background: var(--foreground);
+    color: var(--background);
   }
   :focus-visible {
-    outline: 2px solid var(--signal);
+    outline: 2px solid var(--foreground);
     outline-offset: 3px;
-    border-radius: 3px;
+    border-radius: 2px;
   }
 }
 
 @layer utilities {
-  /* Ambient light instead of alternating bands. One continuous canvas. */
-  .ambient {
-    position: fixed;
-    inset: 0;
-    z-index: 0;
-    pointer-events: none;
-    overflow: hidden;
-  }
-  .ambient::before,
-  .ambient::after {
-    content: '';
-    position: absolute;
-    border-radius: 9999px;
-    filter: blur(120px);
-  }
-  .ambient::before {
-    width: 70vw;
-    height: 70vw;
-    top: -28vw;
-    left: -12vw;
-    background: radial-gradient(circle, rgba(91, 124, 255, 0.13), transparent 68%);
-    animation: drift 34s var(--ease) infinite alternate;
-  }
-  .ambient::after {
-    width: 58vw;
-    height: 58vw;
-    top: 42vh;
-    right: -18vw;
-    background: radial-gradient(circle, rgba(120, 90, 255, 0.085), transparent 68%);
-    animation: drift 44s var(--ease) infinite alternate-reverse;
-  }
-  @keyframes drift {
-    from { transform: translate3d(0, 0, 0) scale(1); }
-    to { transform: translate3d(5vw, 7vh, 0) scale(1.14); }
-  }
-
   .rail {
     position: relative;
-    z-index: 1;
     max-width: 1180px;
     margin-inline: auto;
     padding-inline: 20px;
@@ -126,13 +110,7 @@
     top: 0;
     bottom: 0;
     width: 1px;
-    background: linear-gradient(
-      to bottom,
-      transparent,
-      var(--line) 12%,
-      var(--line) 88%,
-      transparent
-    );
+    background: var(--line);
     pointer-events: none;
   }
   .rail-edges::before { left: 20px; }
@@ -143,13 +121,13 @@
   }
 
   .display {
-    letter-spacing: -0.038em;
-    line-height: 0.97;
+    letter-spacing: -0.035em;
+    line-height: 0.98;
     font-weight: 400;
   }
   .display-sm {
-    letter-spacing: -0.03em;
-    line-height: 1.05;
+    letter-spacing: -0.028em;
+    line-height: 1.06;
     font-weight: 400;
   }
 
@@ -160,11 +138,9 @@
     color: var(--dim);
   }
 
-  /* Raised surface: faint fill, lit top edge, brightens on hover. */
   .surface {
     background: var(--panel);
     border: 1px solid var(--line);
-    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.05);
     transition: border-color 450ms var(--ease), background 450ms var(--ease);
   }
   .surface-lift:hover {
@@ -174,11 +150,11 @@
 
   .btn {
     position: relative;
-    border-radius: 10px;
+    border-radius: 8px;
     transition:
       transform 400ms var(--ease-out),
-      box-shadow 400ms var(--ease-out),
       background 400ms var(--ease),
+      color 400ms var(--ease),
       border-color 400ms var(--ease);
   }
   .btn:hover { transform: translateY(-2px); }
@@ -188,21 +164,19 @@
     background: var(--foreground);
     color: var(--background);
   }
-  .btn-solid:hover {
-    box-shadow: 0 10px 34px -12px rgba(244, 246, 248, 0.42);
-  }
+  .btn-solid:hover { opacity: 0.86; }
+
   .btn-ghost {
-    border: 1px solid var(--line);
+    border: 1px solid var(--line-hi);
     color: var(--foreground);
   }
   .btn-ghost:hover {
-    border-color: var(--line-hi);
-    background: var(--panel-hi);
+    background: var(--foreground);
+    color: var(--background);
+    border-color: var(--foreground);
   }
 
-  .underline-grow {
-    position: relative;
-  }
+  .underline-grow { position: relative; }
   .underline-grow::after {
     content: '';
     position: absolute;
@@ -217,10 +191,9 @@
   }
   .underline-grow:hover::after { transform: scaleX(1); }
 
-  /* One reveal gesture, at section granularity. */
   .reveal {
     opacity: 0;
-    transform: translateY(18px);
+    transform: translateY(16px);
     transition:
       opacity 900ms var(--ease-out),
       transform 900ms var(--ease-out);
@@ -230,11 +203,10 @@
     transform: none;
   }
 
-  /* Headline settles word by word on first paint. */
   .word {
     display: inline-block;
     opacity: 0;
-    transform: translateY(0.34em);
+    transform: translateY(0.32em);
     animation: settle 1100ms var(--ease-out) forwards;
   }
   @keyframes settle {
@@ -257,7 +229,7 @@
   .caret { animation: caret 1.05s step-end infinite; }
 
   @keyframes pulse-ring {
-    0% { transform: scale(1); opacity: 0.55; }
+    0% { transform: scale(1); opacity: 0.4; }
     100% { transform: scale(2.6); opacity: 0; }
   }
   .pulse-ring { animation: pulse-ring 1900ms var(--ease-out) infinite; }
@@ -266,7 +238,6 @@
     html { scroll-behavior: auto; }
     .reveal { opacity: 1; transform: none; transition: none; }
     .word { opacity: 1; transform: none; animation: none; }
-    .ambient::before, .ambient::after { animation: none; }
     .btn:hover { transform: none; }
     *, *::before, *::after {
       animation-duration: 0.001ms !important;

@@ -25,7 +25,7 @@ export function SiteNav() {
     <header
       className="sticky top-0 z-50"
       style={{
-        background: lifted ? 'rgba(8,9,12,0.72)' : 'transparent',
+        background: lifted ? 'color-mix(in srgb, var(--paper) 78%, transparent)' : 'transparent',
         backdropFilter: lifted ? 'blur(18px) saturate(1.4)' : 'none',
         WebkitBackdropFilter: lifted ? 'blur(18px) saturate(1.4)' : 'none',
         borderBottom: `1px solid ${lifted ? 'var(--line)' : 'transparent'}`,

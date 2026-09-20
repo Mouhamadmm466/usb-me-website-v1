@@ -86,15 +86,7 @@ export function Access() {
           fill
           sizes="100vw"
           className="object-cover"
-          style={{ filter: 'brightness(0.7) contrast(1.1)' }}
-        />
-        <span
-          aria-hidden="true"
-          className="absolute inset-0"
-          style={{
-            background:
-              'linear-gradient(to bottom, rgba(8,9,12,0.85), rgba(8,9,12,0.25) 45%, rgba(8,9,12,0.9))',
-          }}
+          style={{ filter: 'grayscale(1) contrast(1.04)' }}
         />
       </figure>
     </section>

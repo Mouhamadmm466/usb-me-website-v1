@@ -78,8 +78,8 @@ export function Pipeline() {
   const reaching = current.outside
 
   return (
-    <section id="how" className="rail rail-edges py-24 md:py-32">
-      <div className="px-5 sm:px-10">
+    <section id="how" className="ink-block">
+      <div className="rail rail-edges px-5 py-24 sm:px-10 md:py-32">
         <Reveal>
           <SectionLabel>How it works</SectionLabel>
           <div className="mt-7 flex flex-col gap-7 md:flex-row md:items-end md:justify-between md:gap-10">
@@ -171,7 +171,6 @@ export function Pipeline() {
                 style={{
                   left: `${((4 + 0.5) / stages.length) * 100}%`,
                   background: 'var(--signal)',
-                  boxShadow: '0 0 12px 1px var(--signal-dim)',
                   opacity: reaching ? 1 : 0,
                 }}
               />
@@ -195,7 +194,6 @@ export function Pipeline() {
                 style={{
                   width: `${progress}%`,
                   background: 'var(--signal)',
-                  boxShadow: '0 0 12px 1px var(--signal-dim)',
                 }}
               />
               <ol className="relative grid grid-cols-6">

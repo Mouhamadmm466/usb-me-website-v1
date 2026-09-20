@@ -28,15 +28,7 @@ export function Device() {
               fill
               sizes="(max-width: 768px) 100vw, 560px"
               className="object-cover"
-              style={{ filter: 'brightness(0.82) contrast(1.08)' }}
-            />
-            <span
-              aria-hidden="true"
-              className="absolute inset-0"
-              style={{
-                background:
-                  'linear-gradient(to top, rgba(8,9,12,0.72), transparent 55%)',
-              }}
+              style={{ filter: 'grayscale(1) contrast(1.06)' }}
             />
           </figure>
           </div>

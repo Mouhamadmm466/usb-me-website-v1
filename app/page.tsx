@@ -12,10 +12,9 @@ import { SiteFooter } from '@/components/site-footer'
 
 export default function Page() {
   return (
-    <div className="relative min-h-dvh">
-      <div aria-hidden="true" className="ambient" />
+    <div className="min-h-dvh">
       <SiteNav />
-      <main className="relative z-[1]">
+      <main>
         <Hero />
         <Thesis />
         <Ladder />

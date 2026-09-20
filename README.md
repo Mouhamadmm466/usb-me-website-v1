@@ -16,17 +16,25 @@ Then open http://localhost:3000.
 
 ## How the site is put together
 
-Design tokens live in `app/globals.css`. The canvas is one continuous near
-black surface with no alternating bands; depth comes from two very slow
-ambient gradients (`.ambient`) rather than from grey blocks. There is a single
-signal colour (`--signal`) that is spent deliberately: the live status dot, the
-waveform, the lit edges of the memory graph, the active network mode, and the
-one place in the pipeline where something crosses off the phone.
+Design tokens live in `app/globals.css`. The page is paper and ink: a warm off
+white `#f8f8f3` with pure black type. There is no accent hue anywhere. All
+hierarchy comes from alpha on black, so muted text is black at 60 percent and
+hairlines are black at 14 percent.
+
+Contrast comes from whole blocks turning over rather than from grey bands. The
+`.ink-block` class flips every token to its inverse and paints the block black,
+so any component dropped inside it adapts with no extra styling. The pipeline,
+the control section and the footer use it. Do not rename this class to
+`invert`, which collides with a Tailwind filter utility.
+
+Note that `--signal` is redeclared inside `.ink-block`. Custom properties
+resolve where they are declared, not where they are used, so a token that
+points at `--foreground` has to be restated in any scope that redefines it.
 
 Motion runs off two easing tokens, `--ease` and `--ease-out`. Shared classes:
 `.reveal` for the single scroll gesture, `.word` for the headline settling in
 on first paint, `.surface` and `.surface-lift` for raised panels, `.btn` for
-the lift and glow on buttons, `.underline-grow` for links.
+the lift on buttons, `.underline-grow` for links.
 
 Sections, in page order (`app/page.tsx`):
 

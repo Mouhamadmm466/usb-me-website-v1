@@ -32,8 +32,8 @@ export function Control() {
   const active = modes[mode]
 
   return (
-    <section id="control" className="rail rail-edges border-t py-24 md:py-32">
-      <div className="grid gap-14 px-5 sm:px-10 md:grid-cols-12 md:gap-12">
+    <section id="control" className="ink-block">
+      <div className="rail rail-edges grid gap-14 px-5 py-24 sm:px-10 md:grid-cols-12 md:gap-12 md:py-32">
         <Reveal className="md:col-span-5">
           <SectionLabel>Control</SectionLabel>
           <h2 className="display-sm mt-7 max-w-[16ch] text-[clamp(2rem,4.6vw,3.4rem)]">
@@ -60,7 +60,6 @@ export function Control() {
                   width: `${100 / modes.length}%`,
                   left: `${(mode * 100) / modes.length}%`,
                   background: 'var(--signal)',
-                  boxShadow: '0 0 14px 1px var(--signal-dim)',
                   transitionTimingFunction: 'var(--ease-out)',
                 }}
               />

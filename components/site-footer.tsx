@@ -32,7 +32,7 @@ const groups = [
 
 export function SiteFooter() {
   return (
-    <footer className="border-t">
+    <footer className="ink-block">
       <div className="rail py-16">
         <div className="grid gap-12 px-5 sm:px-10 md:grid-cols-[1.5fr_repeat(3,1fr)]">
           <div>
