@@ -26,19 +26,19 @@ const activity = [
 
 export function Workspace() {
   return (
-    <section className="rail rail-edges border-t py-24 md:py-32">
-      <div className="px-5 sm:px-10">
+    <section className="border-t section-y">
+      <div className="col-wide gutter">
         <Reveal>
           <SectionLabel>Workspaces</SectionLabel>
         </Reveal>
         <MaskText
-          className="display-sm mt-7 max-w-[18ch] text-[clamp(2rem,4.6vw,3.4rem)]"
+          className="display mt-6 max-w-[34ch]"
           delay={80}
         >
           Something doing the work, not a folder of chats.
         </MaskText>
         <Reveal delay={200}>
-          <p className="mt-6 max-w-[52ch] text-[18px] leading-[1.6] text-muted-foreground">
+          <p className="mt-6 max-w-[52ch] lead">
             Anything you care about gets its own space. The people, the open
             tasks, what you decided and why, what moved this week. It is how
             usb-me always knows where things stand, and how you can check that
@@ -46,14 +46,14 @@ export function Workspace() {
           </p>
         </Reveal>
 
-        <Reveal delay={110} className="surface surface-lift mt-14 overflow-hidden rounded-xl">
+        <Reveal delay={110} className="surface surface-lift mt-14 overflow-hidden rounded-[4px]">
           <div className="flex flex-col gap-5 border-b p-7 sm:flex-row sm:items-end sm:justify-between sm:p-9">
             <div>
-              <p className="readout">workspace</p>
+              <p className="label">workspace</p>
               <h3 className="mt-2.5 text-[28px] tracking-[-0.035em]">
                 Ship the beta
               </h3>
-              <p className="mt-1.5 text-[15px] text-muted-foreground">
+              <p className="mt-1.5 body-sm">
                 Due 20 October, 30 days away
               </p>
             </div>
@@ -64,7 +64,7 @@ export function Workspace() {
                 className="text-[34px] leading-none tracking-[-0.045em]"
               />
               <ProgressBar value={0.67} className="mt-3" />
-              <p className="mt-2.5 text-[15px] text-muted-foreground">
+              <p className="mt-2.5 body-sm">
                 Four of six done
               </p>
             </div>
@@ -72,7 +72,7 @@ export function Workspace() {
 
           <div className="grid sm:grid-cols-3">
             <div className="border-b p-7 sm:border-b-0 sm:border-r sm:p-9">
-              <p className="readout">tasks</p>
+              <p className="label">tasks</p>
               <ul className="mt-4 space-y-3">
                 {tasks.map((t) => (
                   <li key={t.label} className="flex items-center gap-3 text-[15px]">
@@ -99,7 +99,7 @@ export function Workspace() {
             </div>
 
             <div className="border-b p-7 sm:border-b-0 sm:border-r sm:p-9">
-              <p className="readout">decisions</p>
+              <p className="label">decisions</p>
               <ul className="mt-4 space-y-4">
                 {decisions.map((d) => (
                   <li key={d.text}>
@@ -110,12 +110,12 @@ export function Workspace() {
                   </li>
                 ))}
               </ul>
-              <p className="readout mt-8">people</p>
-              <p className="mt-3 text-[15px] text-muted-foreground">Sarah, Abdou</p>
+              <p className="label mt-8">people</p>
+              <p className="mt-3 body-sm">Sarah, Abdou</p>
             </div>
 
             <div className="p-7 sm:p-9">
-              <p className="readout">what moved</p>
+              <p className="label">what moved</p>
               <ul className="mt-4 space-y-4">
                 {activity.map((a) => (
                   <li key={a.text}>

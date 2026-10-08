@@ -68,19 +68,19 @@ export function Benchmark() {
   const shown = reduced || inView
 
   return (
-    <section id="evidence" className="rail rail-edges border-t py-24 md:py-32">
-      <div className="px-5 sm:px-10">
+    <section id="evidence" className="border-t section-y">
+      <div className="col-wide gutter">
         <Reveal>
           <SectionLabel>Evidence</SectionLabel>
         </Reveal>
         <MaskText
-          className="display-sm mt-7 max-w-[19ch] text-[clamp(2rem,4.6vw,3.4rem)]"
+          className="display mt-6 max-w-[34ch]"
           delay={80}
         >
           We measured it, including where it loses.
         </MaskText>
         <Reveal delay={200}>
-          <p className="mt-6 max-w-[58ch] text-[18px] leading-[1.65] text-muted-foreground">
+          <p className="mt-6 max-w-[58ch] lead">
             We built a suite of 150 scenarios and ran the same tests against
             three models. Every scenario asks for a structured decision. Pick
             the right tool, fill in the arguments, respect a permission, ask
@@ -108,7 +108,7 @@ export function Benchmark() {
                 to={s.n}
                 className="text-[40px] leading-none tracking-[-0.05em]"
               />
-              <p className="mt-2.5 text-[15px] text-muted-foreground">
+              <p className="mt-2.5 body-sm">
                 {s.label}
               </p>
             </div>
@@ -118,7 +118,7 @@ export function Benchmark() {
         <div ref={ref} className="mt-16 grid gap-14 border-t pt-12 md:grid-cols-12 md:gap-12">
           {/* Scores */}
           <div className="md:col-span-7">
-            <p className="readout">passed, out of 150</p>
+            <p className="label">passed, out of 150</p>
             <ul className="mt-7 space-y-7">
               {scores.map((s, i) => (
                 <li key={s.model}>
@@ -133,7 +133,7 @@ export function Benchmark() {
                     >
                       {s.model}
                       {s.ours && (
-                        <span className="readout ml-3">what we ship</span>
+                        <span className="label ml-3">what we ship</span>
                       )}
                     </span>
                     <span
@@ -157,7 +157,7 @@ export function Benchmark() {
                 </li>
               ))}
             </ul>
-            <p className="mt-6 max-w-[54ch] text-[15px] leading-relaxed text-muted-foreground">
+            <p className="mt-6 max-w-[54ch] body-sm">
               Bars run to 100, not to the leader, because none of these models
               is close to finished on work this strict.
             </p>
@@ -165,7 +165,7 @@ export function Benchmark() {
 
           {/* The tradeoff that decides it */}
           <div className="md:col-span-5">
-            <p className="readout">size on disk</p>
+            <p className="label">size on disk</p>
             <ul className="mt-7 space-y-7">
               {sizes.map((s, i) => (
                 <li key={s.model}>
@@ -218,8 +218,8 @@ export function Benchmark() {
         {/* Honest split */}
         <Reveal className="mt-16 grid gap-10 border-t pt-12 md:grid-cols-2 md:gap-16">
           <div>
-            <p className="readout">where it held up</p>
-            <p className="mt-5 max-w-[46ch] text-[18px] leading-[1.6] text-foreground">
+            <p className="label">where it held up</p>
+            <p className="mt-5 max-w-[46ch] lead !text-[color:var(--foreground)]">
               It cleared all eight execution status cases, and it handled
               permissions better than either of the other two models. Those are
               the cases where a mistake would act on your behalf without asking,
@@ -227,8 +227,8 @@ export function Benchmark() {
             </p>
           </div>
           <div>
-            <p className="readout">where it did not</p>
-            <p className="mt-5 max-w-[46ch] text-[18px] leading-[1.6] text-muted-foreground">
+            <p className="label">where it did not</p>
+            <p className="mt-5 max-w-[46ch] lead">
               Calendar actions, file tasks and time reasoning are where it fell
               down. Those failures are specific and reproducible, which is the
               useful kind, and they are what we are working on now.
@@ -237,18 +237,18 @@ export function Benchmark() {
         </Reveal>
 
         <Reveal className="mt-14 border-t pt-8">
-          <p className="readout">what every scenario tests</p>
+          <p className="label">what every scenario tests</p>
           <div className="mt-5 flex flex-wrap gap-2">
             {categories.map((c) => (
               <span
                 key={c}
-                className="rounded-md border px-2.5 py-1 text-[14px] text-muted-foreground"
+                className="rounded-[4px] border px-2.5 py-1 text-[14px] text-muted-foreground"
               >
                 {c}
               </span>
             ))}
           </div>
-          <p className="mt-8 max-w-[62ch] text-[15px] leading-relaxed text-muted-foreground">
+          <p className="mt-8 max-w-[62ch] body-sm">
             These are our own numbers, from our own suite, scored
             automatically in September 2026. They are early. We will keep
             publishing them as they move, including the runs that go badly.

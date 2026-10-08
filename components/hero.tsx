@@ -5,8 +5,8 @@ const headline = ['Own', 'your', 'intelligence.']
 
 export function Hero() {
   return (
-    <section id="top" className="rail rail-edges pb-24 pt-24 sm:pt-32 md:pb-32 md:pt-40">
-      <div className="px-5 sm:px-10">
+    <section id="top" className="pb-20 pt-20 sm:pt-28 md:pb-28">
+      <div className="col-wide gutter">
         <div className="mx-auto flex max-w-[860px] flex-col items-center text-center">
           <p
             className="surface inline-flex items-center gap-2.5 whitespace-nowrap rounded-full px-3.5 py-1.5 text-[12px] text-muted-foreground sm:text-[13px]"
@@ -32,7 +32,7 @@ export function Hero() {
             </span>
           </p>
 
-          <h1 className="display mt-9 text-[clamp(2.5rem,6vw,4.5rem)]">
+          <h1 className="display mt-7 max-w-[26ch]">
             {headline.map((word, i) => (
               <span
                 key={word}
@@ -46,7 +46,7 @@ export function Hero() {
           </h1>
 
           <Reveal delay={380}>
-            <p className="mx-auto mt-7 max-w-[54ch] text-[19px] leading-[1.5] text-muted-foreground">
+            <p className="mx-auto mt-7 max-w-[54ch] lead">
               It learns what you choose to share, works out what you are trying
               to get done, and does it. On your phone, not on a server.
             </p>
@@ -54,11 +54,11 @@ export function Hero() {
             <div className="mt-9 flex flex-wrap items-center justify-center gap-3">
               <a
                 href="#access"
-                className="btn btn-solid px-6 py-3 text-[15px] font-medium"
+                className="btn btn-solid inline-flex"
               >
                 Get early access
               </a>
-              <a href="#how" className="btn btn-soft px-6 py-3 text-[15px]">
+              <a href="#how" className="btn btn-soft inline-flex">
                 See how it works
               </a>
             </div>

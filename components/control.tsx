@@ -33,33 +33,33 @@ export function Control() {
   const active = modes[mode]
 
   return (
-    <section id="control" className="ink-block">
-      <div className="rail rail-edges grid gap-14 px-5 py-24 sm:px-10 md:grid-cols-12 md:gap-12 md:py-32">
+    <section id="control" className="border-t">
+      <div className="col-wide gutter section-y grid gap-12 md:grid-cols-12">
         <div className="md:col-span-5">
         <Reveal>
           <SectionLabel>Control</SectionLabel>
         </Reveal>
         <MaskText
-          className="display-sm mt-7 max-w-[16ch] text-[clamp(2rem,4.6vw,3.4rem)]"
+          className="display mt-6 max-w-[34ch]"
           delay={80}
         >
           You decide how far it can reach.
         </MaskText>
         <Reveal delay={200}>
-          <p className="max-w-[46ch] text-[18px] leading-[1.65] text-muted-foreground">
+          <p className="mt-6 max-w-[46ch] lead">
             We will not claim nothing ever leaves your phone. Sending an email
             means sending an email. What we promise is that only the part a task
             needs goes out. Your memory never travels just because one tool
             wanted the internet.
           </p>
-          <p className="mt-5 max-w-[46ch] text-[18px] leading-[1.65] text-foreground">
+          <p className="mt-5 max-w-[46ch] lead !text-[color:var(--foreground)]">
             Before it does anything that touches another person, it asks.
           </p>
         </Reveal>
         </div>
 
         <Reveal delay={120} className="md:col-span-7">
-          <div className="surface overflow-hidden rounded-xl">
+          <div className="surface overflow-hidden rounded-[4px]">
             <div role="radiogroup" aria-label="Network mode" className="relative grid grid-cols-3 border-b">
               <span
                 aria-hidden="true"
@@ -100,12 +100,12 @@ export function Control() {
               </p>
 
               <div className="mt-7 border-t pt-6">
-                <p className="readout">connected tools</p>
+                <p className="label">connected tools</p>
                 <div className="mt-4 flex flex-wrap gap-2">
                   {tools.map((t, i) => (
                     <span
                       key={t}
-                      className="rounded-md border px-2.5 py-1 text-[14px]"
+                      className="rounded-[4px] border px-2.5 py-1 text-[14px]"
                       style={{
                         borderColor: active.tools ? 'var(--line-hi)' : 'var(--line)',
                         color: active.tools ? 'var(--foreground)' : 'var(--dim)',

@@ -100,7 +100,7 @@ export function Trace() {
   const listening = phase === 'listening'
 
   return (
-    <div className="surface overflow-hidden rounded-xl">
+    <div className="surface overflow-hidden rounded-[4px]">
       <div className="flex flex-col gap-5 border-b px-6 py-6 sm:flex-row sm:items-center sm:gap-7 sm:px-8">
         <div
           aria-hidden="true"
@@ -197,14 +197,14 @@ export function Trace() {
       </ol>
 
       <div className="flex items-center justify-between gap-4 border-t px-6 py-3 sm:px-8">
-        <span className="readout">
+        <span className="label">
           {phase === 'listening'
             ? 'listening'
             : phase === 'working'
               ? 'thinking on your phone'
               : 'idle'}
         </span>
-        <span className="readout">no network used</span>
+        <span className="label">no network used</span>
       </div>
     </div>
   )

@@ -54,26 +54,26 @@ export function Memory() {
   const current = active ? nodes[active] : null
 
   return (
-    <section id="memory" className="rail rail-edges border-t py-24 md:py-32">
-      <div className="grid gap-14 px-5 sm:px-10 md:grid-cols-12 md:gap-12">
+    <section id="memory" className="border-t section-y">
+      <div className="col-wide gutter grid gap-12 md:grid-cols-12">
         <div className="md:col-span-5">
         <Reveal>
           <SectionLabel>Memory</SectionLabel>
         </Reveal>
         <MaskText
-          className="display-sm mt-7 max-w-[16ch] text-[clamp(2rem,4.6vw,3.4rem)]"
+          className="display mt-6 max-w-[34ch]"
           delay={80}
         >
           It knows how your world fits together.
         </MaskText>
         <Reveal delay={200}>
-          <p className="max-w-[46ch] text-[18px] leading-[1.65] text-muted-foreground">
+          <p className="mt-6 max-w-[46ch] lead">
             Not a long history of everything you ever typed. usb-me keeps a real
             picture of your life. People, projects, goals, documents, decisions,
             promises, and how they connect. That is what lets it answer where
             did we leave off without you explaining anything.
           </p>
-          <p className="mt-5 max-w-[46ch] text-[18px] leading-[1.65] text-foreground">
+          <p className="mt-5 max-w-[46ch] lead !text-[color:var(--foreground)]">
             You can read all of it, fix it, or delete it. It lives on your
             phone, and it comes with you when the models get better.
           </p>
@@ -83,7 +83,7 @@ export function Memory() {
         <Reveal delay={120} className="md:col-span-7">
           <figure
             ref={figureRef}
-            className="surface overflow-hidden rounded-xl"
+            className="surface overflow-hidden rounded-[4px]"
             onMouseLeave={() => setActive(null)}
           >
             <svg
@@ -165,13 +165,13 @@ export function Memory() {
             <figcaption className="flex min-h-[72px] items-center gap-4 border-t px-6 py-4">
               {current ? (
                 <>
-                  <span className="readout shrink-0">{current.kind}</span>
+                  <span className="label shrink-0">{current.kind}</span>
                   <span className="text-[15px] leading-snug text-foreground">
                     {current.detail}
                   </span>
                 </>
               ) : (
-                <span className="text-[15px] text-muted-foreground">
+                <span className="body-sm">
                   Point at anything here to see what it holds.
                 </span>
               )}

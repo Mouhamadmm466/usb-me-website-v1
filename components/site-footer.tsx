@@ -33,12 +33,12 @@ const groups = [
 
 export function SiteFooter() {
   return (
-    <footer className="ink-block">
-      <div className="rail py-16">
+    <footer className="border-t">
+      <div className="col-wide gutter py-14">
         <div className="grid gap-12 px-5 sm:px-10 md:grid-cols-[1.5fr_repeat(3,1fr)]">
           <div>
             <Wordmark />
-            <p className="mt-5 max-w-[28ch] text-[15px] leading-relaxed text-muted-foreground">
+            <p className="mt-5 max-w-[28ch] body-sm">
               A personal intelligence that lives on your phone and belongs to
               you.
             </p>
@@ -52,7 +52,7 @@ export function SiteFooter() {
                   <li key={l.label}>
                     <a
                       href={l.href}
-                      className="underline-grow text-[15px] text-muted-foreground transition-colors duration-400 hover:text-foreground"
+                      className="underline-grow body-sm transition-colors duration-400 hover:text-foreground"
                     >
                       {l.label}
                     </a>

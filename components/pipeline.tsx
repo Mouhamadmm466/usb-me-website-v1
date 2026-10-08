@@ -79,19 +79,19 @@ export function Pipeline() {
   const reaching = current.outside
 
   return (
-    <section id="how" className="ink-block">
-      <div className="rail rail-edges px-5 py-24 sm:px-10 md:py-32">
+    <section id="how" className="border-t">
+      <div className="col-wide gutter section-y">
         <Reveal>
           <SectionLabel>How it works</SectionLabel>
           <div className="mt-7 flex flex-col gap-7 md:flex-row md:items-end md:justify-between md:gap-10">
             <div>
               <MaskText
-                className="display-sm max-w-[16ch] text-[clamp(2rem,4.6vw,3.4rem)]"
+                className="display max-w-[34ch]"
                 delay={60}
               >
                 Follow one sentence all the way through.
               </MaskText>
-              <p className="mt-6 max-w-[52ch] text-[18px] leading-[1.6] text-muted-foreground">
+              <p className="mt-6 max-w-[52ch] lead">
                 Six steps happen between you speaking and your phone answering.
                 Play it, or step through them yourself.
               </p>
@@ -106,7 +106,7 @@ export function Pipeline() {
                   setStarted(true)
                 }
               }}
-              className="btn btn-soft inline-flex shrink-0 items-center gap-3 px-5 py-3 text-[15px]"
+              className="btn btn-soft inline-flex shrink-0 items-center gap-3"
               aria-label={playing ? 'Pause the walkthrough' : 'Play the walkthrough'}
             >
               <span className="relative flex h-2.5 w-2.5 items-center justify-center">
@@ -139,7 +139,7 @@ export function Pipeline() {
               background: reaching ? 'var(--signal-dim)' : 'transparent',
             }}
           >
-            <span className="readout whitespace-nowrap">the internet</span>
+            <span className="label whitespace-nowrap">the internet</span>
             <span
               className="text-[14px] transition-colors duration-700"
               style={{
@@ -183,7 +183,7 @@ export function Pipeline() {
 
           {/* On your phone */}
           <div className="surface rounded-b-xl rounded-t-xl p-6 sm:p-8">
-            <p className="readout">your phone</p>
+            <p className="label">your phone</p>
 
             {/* Rail */}
             <div className="relative mt-7 hidden sm:block">
@@ -281,7 +281,7 @@ export function Pipeline() {
                         {s.short}
                       </span>
                       {s.outside && (
-                        <span className="readout ml-auto">asks first</span>
+                        <span className="label ml-auto">asks first</span>
                       )}
                     </button>
                   </li>

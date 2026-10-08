@@ -18,14 +18,14 @@ export function Access() {
 
   return (
     <section id="access" className="border-t">
-      <div className="rail rail-edges py-24 md:py-32">
-        <div className="grid gap-14 px-5 sm:px-10 md:grid-cols-12 md:gap-12">
+      <div className="section-y">
+        <div className="col-wide gutter grid gap-12 md:grid-cols-12">
           <div className="md:col-span-6">
-            <MaskText className="display max-w-[13ch] text-[clamp(2.4rem,5.6vw,4.2rem)]">
+            <MaskText className="display max-w-[30ch]">
               Six months in, it already knows.
             </MaskText>
             <Reveal delay={180}>
-            <p className="mt-7 max-w-[44ch] text-[18px] leading-[1.65] text-muted-foreground">
+            <p className="mt-7 max-w-[44ch] lead">
               You pick up your phone and there is no catching up to do. Less
               like opening an app. More like carrying on. We are letting the
               first people in soon.
@@ -47,9 +47,9 @@ export function Access() {
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   placeholder="you@example.com"
-                  className="surface min-w-0 flex-1 rounded-[10px] px-4 py-3 text-[15px] text-foreground transition-colors duration-500 placeholder:text-dim focus:border-[color:var(--line-hi)]"
+                  className="surface min-w-0 flex-1 rounded-[4px] px-4 py-3 text-[15px] text-foreground transition-colors duration-500 placeholder:text-dim focus:border-[color:var(--line-hi)]"
                 />
-                <button type="submit" className="btn btn-solid px-5 py-3 text-[15px] font-medium">
+                <button type="submit" className="btn btn-solid inline-flex">
                   Request access
                 </button>
               </div>
@@ -67,7 +67,7 @@ export function Access() {
           </div>
 
           <Reveal delay={110} className="md:col-span-5 md:col-start-8">
-            <p className="readout">what people ask it</p>
+            <p className="label">what people ask it</p>
             <ul className="mt-5">
               {asks.map((a) => (
                 <li

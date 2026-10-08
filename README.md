@@ -16,20 +16,30 @@ Then open http://localhost:3000.
 
 ## How the site is put together
 
-Design tokens live in `app/globals.css`. The page is paper and ink: a warm off
-white `#f8f8f3` with pure black type. There is no accent hue anywhere. All
-hierarchy comes from alpha on black, so muted text is black at 60 percent and
-hairlines are black at 14 percent.
+The design system is deliberately restrained, measured off the reference the
+brief named. Tokens live in `app/globals.css`.
 
-Contrast comes from whole blocks turning over rather than from grey bands. The
-`.ink-block` class flips every token to its inverse and paints the block black,
-so any component dropped inside it adapts with no extra styling. The pipeline,
-the control section and the footer use it. Do not rename this class to
-`invert`, which collides with a Tailwind filter utility.
+**Colour.** One paper ground, `#f8f8f3`, and pure black. There is no accent
+hue anywhere and no dark sections. Every tone is black at an alpha: `0.8` for
+strong text, `0.6` for body, `0.45` for labels, `0.12` for hairlines, `0.06`
+for soft fills, `0.9` for solid buttons.
 
-Note that `--signal` is redeclared inside `.ink-block`. Custom properties
-resolve where they are declared, not where they are used, so a token that
-points at `--foreground` has to be restated in any scope that redefines it.
+**Type.** A serif carries every heading at one single size. `--display-size`
+is 24px, weight 400, tracking `-0.01em`, leading 1.15, and the hero uses the
+same value as every section head. Raising that one token scales the whole page
+up if it should shout louder. Body is DM Sans at 18px weight 500, leading 1.45.
+Small copy is 14px, labels are 11px weight 500. Mono is reserved for genuine
+machine output, nothing else.
+
+**Measure.** `--measure` is 688px and holds all prose. `--wide` is 1080px and
+holds anything that is not prose: the trace, the pipeline, the graph, the data
+panels. Sections run on one `section-y` rhythm, 56px on small screens and 80px
+from `md` up, separated by a single hairline rather than by a change of colour.
+
+**Shape.** 4px on panels and cards, fully rounded on pills, nothing in between.
+Buttons are 40px tall with 14px type; `.btn` deliberately does not declare
+`display`, because doing so beats Tailwind's `hidden` and leaks the nav CTA
+onto mobile. Call sites add their own `inline-flex`.
 
 ## Motion
 

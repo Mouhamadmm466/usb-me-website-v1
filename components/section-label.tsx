@@ -1,5 +1,6 @@
 import { cn } from '@/lib/utils'
 
+/** A plain small marker. The reference carries no rule beside it. */
 export function SectionLabel({
   children,
   className,
@@ -7,14 +8,5 @@ export function SectionLabel({
   children: React.ReactNode
   className?: string
 }) {
-  return (
-    <span className={cn('inline-flex items-center gap-3 text-[13px] text-muted-foreground', className)}>
-      <span
-        aria-hidden="true"
-        className="h-px w-8"
-        style={{ background: 'var(--signal)' }}
-      />
-      {children}
-    </span>
-  )
+  return <span className={cn('label', className)}>{children}</span>
 }

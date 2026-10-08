@@ -4,6 +4,7 @@
 
 @theme inline {
   --font-sans: var(--font-dm-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-serif: var(--font-source-serif), ui-serif, Georgia, serif;
   --font-mono: var(--font-dm-mono), ui-monospace, monospace;
 
   --color-background: var(--background);
@@ -21,49 +22,38 @@
   --color-ring: var(--foreground);
   --color-primary: var(--foreground);
   --color-primary-foreground: var(--background);
-
-  --radius-sm: 6px;
-  --radius-md: 8px;
-  --radius-lg: 10px;
-  --radius-xl: 12px;
 }
 
 :root {
   color-scheme: light;
 
-  /* Paper and ink. Hierarchy comes from alpha, never from a second hue. */
+  /* Paper and ink. Every tone is black at an alpha, never a second hue. */
   --paper: #f8f8f3;
   --ink: #000000;
 
   --background: var(--paper);
   --foreground: var(--ink);
+  --strong: rgba(0, 0, 0, 0.8);
   --muted-foreground: rgba(0, 0, 0, 0.6);
   --dim: rgba(0, 0, 0, 0.45);
-  --line: rgba(0, 0, 0, 0.14);
-  --line-hi: rgba(0, 0, 0, 0.3);
-  --panel: rgba(0, 0, 0, 0.022);
-  --panel-hi: rgba(0, 0, 0, 0.05);
+  --line: rgba(0, 0, 0, 0.12);
+  --line-hi: rgba(0, 0, 0, 0.26);
+  --panel: rgba(0, 0, 0, 0.03);
+  --panel-hi: rgba(0, 0, 0, 0.06);
+  --solid: rgba(0, 0, 0, 0.9);
   --signal: var(--foreground);
   --signal-dim: rgba(0, 0, 0, 0.08);
 
+  /* One display size for the whole page. Raise this single value if the
+     page should shout louder; everything scales from it. */
+  --display-size: 24px;
+  --display-sm-size: 20px;
+
+  --measure: 688px;   /* the text column */
+  --wide: 1080px;     /* panels, data, anything that is not prose */
+
   --ease: cubic-bezier(0.22, 0.61, 0.36, 1);
   --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-/* Contrast comes from whole blocks turning over, not from grey bands. */
-.ink-block {
-  --background: var(--ink);
-  --foreground: var(--paper);
-  --muted-foreground: rgba(248, 248, 243, 0.62);
-  --dim: rgba(248, 248, 243, 0.42);
-  --line: rgba(248, 248, 243, 0.16);
-  --line-hi: rgba(248, 248, 243, 0.34);
-  --panel: rgba(248, 248, 243, 0.04);
-  --panel-hi: rgba(248, 248, 243, 0.09);
-  --signal: var(--foreground);
-  --signal-dim: rgba(248, 248, 243, 0.12);
-  background: var(--ink);
-  color: var(--foreground);
 }
 
 @layer base {
@@ -77,7 +67,7 @@
   body {
     background: var(--background);
     color: var(--foreground);
-    font-feature-settings: 'kern' 1, 'liga' 1;
+    font-size: 18px;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }
@@ -93,54 +83,79 @@
 }
 
 @layer utilities {
-  .rail {
-    position: relative;
-    max-width: 1180px;
+  /* ---- Measure ---------------------------------------------------------- */
+  .col {
+    width: 100%;
+    max-width: var(--measure);
     margin-inline: auto;
-    padding-inline: 20px;
+  }
+  .col-wide {
+    width: 100%;
+    max-width: var(--wide);
+    margin-inline: auto;
+  }
+  .gutter {
+    padding-inline: 24px;
   }
   @media (min-width: 640px) {
-    .rail { padding-inline: 40px; }
+    .gutter { padding-inline: 40px; }
   }
 
-  .rail-edges::before,
-  .rail-edges::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    width: 1px;
-    background: var(--line);
-    pointer-events: none;
+  .section-y {
+    padding-block: 56px;
   }
-  .rail-edges::before { left: 20px; }
-  .rail-edges::after { right: 20px; }
-  @media (min-width: 640px) {
-    .rail-edges::before { left: 40px; }
-    .rail-edges::after { right: 40px; }
+  @media (min-width: 768px) {
+    .section-y { padding-block: 80px; }
   }
 
+  /* ---- Type ------------------------------------------------------------- */
   .display {
-    letter-spacing: -0.035em;
-    line-height: 0.98;
+    font-family: var(--font-serif), ui-serif, Georgia, serif;
+    font-size: var(--display-size);
     font-weight: 400;
+    letter-spacing: -0.01em;
+    line-height: 1.15;
+    color: var(--foreground);
   }
-  .display-sm {
-    letter-spacing: -0.028em;
-    line-height: 1.06;
+  .display-quiet {
+    color: var(--strong);
+  }
+  .display-3 {
+    font-family: var(--font-serif), ui-serif, Georgia, serif;
+    font-size: var(--display-sm-size);
     font-weight: 400;
+    letter-spacing: -0.01em;
+    line-height: 1.15;
   }
-
+  .lead {
+    font-size: 18px;
+    font-weight: 500;
+    line-height: 1.45;
+    color: var(--muted-foreground);
+  }
+  .body-sm {
+    font-size: 14px;
+    line-height: 1.45;
+    color: var(--muted-foreground);
+  }
+  .label {
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: -0.01em;
+    color: var(--dim);
+  }
   .readout {
     font-family: var(--font-mono), ui-monospace, monospace;
-    font-size: 11px;
-    letter-spacing: 0.05em;
+    font-size: 12px;
+    letter-spacing: -0.01em;
     color: var(--dim);
   }
 
+  /* ---- Surfaces --------------------------------------------------------- */
   .surface {
     background: var(--panel);
     border: 1px solid var(--line);
+    border-radius: 4px;
     transition: border-color 450ms var(--ease), background 450ms var(--ease);
   }
   .surface-lift:hover {
@@ -148,40 +163,35 @@
     background: var(--panel-hi);
   }
 
+  /* ---- Buttons ---------------------------------------------------------- */
   .btn {
-    position: relative;
+    align-items: center;
+    justify-content: center;
+    height: 40px;
+    padding-inline: 18px;
     border-radius: 9999px;
+    font-size: 14px;
+    font-weight: 500;
+    white-space: nowrap;
     transition:
       transform 400ms var(--ease-out),
       background 400ms var(--ease),
-      color 400ms var(--ease),
-      opacity 400ms var(--ease);
+      color 400ms var(--ease);
   }
-  .btn:hover { transform: translateY(-2px); }
+  .btn:hover { transform: translateY(-1px); }
   .btn:active { transform: translateY(0); transition-duration: 90ms; }
 
   .btn-solid {
-    background: var(--foreground);
-    color: var(--background);
+    background: var(--solid);
+    color: var(--paper);
   }
-  .btn-solid:hover { opacity: 0.86; }
+  .btn-solid:hover { background: var(--ink); }
 
-  /* Soft companion to the solid pill: a fill, never an outline. */
   .btn-soft {
     background: var(--panel-hi);
-    color: var(--foreground);
+    color: var(--strong);
   }
   .btn-soft:hover { background: var(--line); }
-
-  .btn-ghost {
-    border: 1px solid var(--line-hi);
-    color: var(--foreground);
-  }
-  .btn-ghost:hover {
-    background: var(--foreground);
-    color: var(--background);
-    border-color: var(--foreground);
-  }
 
   .underline-grow { position: relative; }
   .underline-grow::after {
@@ -189,7 +199,7 @@
     position: absolute;
     left: 0;
     right: 0;
-    bottom: -4px;
+    bottom: -3px;
     height: 1px;
     background: currentColor;
     transform: scaleX(0);
@@ -198,12 +208,13 @@
   }
   .underline-grow:hover::after { transform: scaleX(1); }
 
+  /* ---- Motion ----------------------------------------------------------- */
   .reveal {
     opacity: 0;
-    transform: translateY(16px);
+    transform: translateY(12px);
     transition:
-      opacity 900ms var(--ease-out),
-      transform 900ms var(--ease-out);
+      opacity 800ms var(--ease-out),
+      transform 800ms var(--ease-out);
   }
   .reveal[data-shown='true'] {
     opacity: 1;
@@ -213,8 +224,8 @@
   .word {
     display: inline-block;
     opacity: 0;
-    transform: translateY(0.32em);
-    animation: settle 1100ms var(--ease-out) forwards;
+    transform: translateY(0.3em);
+    animation: settle 1000ms var(--ease-out) forwards;
   }
   @keyframes settle {
     to { opacity: 1; transform: none; }

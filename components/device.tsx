@@ -18,15 +18,15 @@ const offline = [
 
 export function Device() {
   return (
-    <section id="device" className="rail rail-edges border-t py-24 md:py-32">
-      <div className="grid gap-14 px-5 sm:px-10 md:grid-cols-12 md:gap-12">
+    <section id="device" className="border-t section-y">
+      <div className="col-wide gutter grid gap-12 md:grid-cols-12">
         <Reveal className="md:col-span-6">
           <div className="md:sticky md:top-28">
           <ParallaxImage
             src="/images/device.png"
             alt="A hand holding a phone in soft directional light"
             sizes="(max-width: 768px) 100vw, 560px"
-            className="surface aspect-[4/5] w-full rounded-xl"
+            className="surface aspect-[4/5] w-full rounded-[4px]"
           />
           </div>
         </Reveal>
@@ -36,13 +36,13 @@ export function Device() {
             <SectionLabel>Your phone</SectionLabel>
           </Reveal>
           <MaskText
-            className="display-sm mt-7 max-w-[18ch] text-[clamp(2rem,4.6vw,3.4rem)]"
+            className="display mt-6 max-w-[34ch]"
             delay={80}
           >
             The internet is a tool it picks up, not a place it lives.
           </MaskText>
           <Reveal delay={200}>
-            <p className="mt-6 max-w-[46ch] text-[18px] leading-[1.65] text-muted-foreground">
+            <p className="mt-6 max-w-[46ch] lead">
               The model, the memory and the thinking all sit on your phone. Most
               of what you ask never needs a connection. When something truly
               does, like sending an email, it reaches out for that one step and
@@ -50,8 +50,8 @@ export function Device() {
             </p>
           </Reveal>
 
-          <Reveal delay={90} className="surface surface-lift mt-10 rounded-xl p-6 sm:p-7">
-            <p className="readout">your phone</p>
+          <Reveal delay={90} className="surface surface-lift mt-10 rounded-[4px] p-6 sm:p-7">
+            <p className="label">your phone</p>
             <ul className="mt-4">
               {stack.map((s) => (
                 <li

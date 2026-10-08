@@ -74,19 +74,19 @@ export function Ladder() {
   }, [reduced])
 
   return (
-    <section id="work" className="rail rail-edges border-t py-24 md:py-32">
-      <div className="px-5 sm:px-10">
+    <section id="work" className="border-t section-y">
+      <div className="col-wide gutter">
         <Reveal>
           <SectionLabel>What it does</SectionLabel>
         </Reveal>
         <MaskText
-          className="display-sm mt-7 max-w-[18ch] text-[clamp(2rem,4.6vw,3.4rem)]"
+          className="display mt-6 max-w-[34ch]"
           delay={80}
         >
           Talking is only the surface.
         </MaskText>
         <Reveal delay={200}>
-          <p className="mt-6 max-w-[52ch] text-[18px] leading-[1.6] text-muted-foreground">
+          <p className="mt-6 max-w-[52ch] lead">
             You speak to it the way you speak to a person. What matters is how
             much of the thinking it takes off your hands, and that grows with
             how much you hand it.
@@ -104,15 +104,15 @@ export function Ladder() {
                 ref={(el) => {
                   cards.current[i] = el
                 }}
-                className="overflow-hidden rounded-2xl border will-change-transform"
+                className="overflow-hidden rounded-[4px] border will-change-transform"
                 style={{
                   background: 'var(--background)',
                   transformOrigin: 'top center',
                 }}
               >
                 <header className="flex items-center justify-between gap-4 border-b px-6 py-4 sm:px-9">
-                  <span className="readout">{r.kind}</span>
-                  <span className="readout">
+                  <span className="label">{r.kind}</span>
+                  <span className="label">
                     {String(i + 1).padStart(2, '0')}
                   </span>
                 </header>
