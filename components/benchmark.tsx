@@ -68,19 +68,17 @@ export function Benchmark() {
   const shown = reduced || inView
 
   return (
-    <section id="evidence" className="border-t section-y">
-      <div className="col-wide gutter">
-        <Reveal>
+    <section id="evidence" className="section-y">
+      <div className="band gutter">
+        <Reveal className="prose-col">
           <SectionLabel>Evidence</SectionLabel>
         </Reveal>
-        <MaskText
-          className="display mt-6 max-w-[34ch]"
-          delay={80}
-        >
+        <div className="prose-col">
+        <MaskText className="display mt-3 max-w-[34ch]" delay={60}>
           We measured it, including where it loses.
         </MaskText>
-        <Reveal delay={200}>
-          <p className="mt-6 max-w-[58ch] lead">
+        <Reveal delay={180}>
+          <p className="mt-5 lead">
             We built a suite of 150 scenarios and ran the same tests against
             three models. Every scenario asks for a structured decision. Pick
             the right tool, fill in the arguments, respect a permission, ask
@@ -88,9 +86,10 @@ export function Benchmark() {
             a calendar, a file, or time.
           </p>
         </Reveal>
+        </div>
 
         {/* The shape of the run */}
-        <Reveal delay={260} className="mt-14 grid border-t sm:grid-cols-3">
+        <Reveal delay={240} className="mt-12 grid border-t sm:grid-cols-3">
           {[
             { n: 150, label: 'scenarios' },
             { n: 3, label: 'models tested' },
@@ -115,7 +114,7 @@ export function Benchmark() {
           ))}
         </Reveal>
 
-        <div ref={ref} className="mt-16 grid gap-14 border-t pt-12 md:grid-cols-12 md:gap-12">
+        <div ref={ref} className="mt-14 grid gap-12 border-t pt-10 md:grid-cols-12">
           {/* Scores */}
           <div className="md:col-span-7">
             <p className="label">passed, out of 150</p>
@@ -216,7 +215,7 @@ export function Benchmark() {
         </div>
 
         {/* Honest split */}
-        <Reveal className="mt-16 grid gap-10 border-t pt-12 md:grid-cols-2 md:gap-16">
+        <Reveal className="mt-14 grid gap-10 border-t pt-10 md:grid-cols-2">
           <div>
             <p className="label">where it held up</p>
             <p className="mt-5 max-w-[46ch] lead !text-[color:var(--foreground)]">

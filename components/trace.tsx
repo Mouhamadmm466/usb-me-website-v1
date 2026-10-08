@@ -100,7 +100,7 @@ export function Trace() {
   const listening = phase === 'listening'
 
   return (
-    <div className="surface overflow-hidden rounded-[4px]">
+    <div className="overflow-hidden rounded-[4px]" style={{ background: 'var(--panel)' }}>
       <div className="flex flex-col gap-5 border-b px-6 py-6 sm:flex-row sm:items-center sm:gap-7 sm:px-8">
         <div
           aria-hidden="true"

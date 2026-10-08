@@ -31,15 +31,29 @@ up if it should shout louder. Body is DM Sans at 18px weight 500, leading 1.45.
 Small copy is 14px, labels are 11px weight 500. Mono is reserved for genuine
 machine output, nothing else.
 
-**Measure.** `--measure` is 688px and holds all prose. `--wide` is 1080px and
-holds anything that is not prose: the trace, the pipeline, the graph, the data
-panels. Sections run on one `section-y` rhythm, 56px on small screens and 80px
-from `md` up, separated by a single hairline rather than by a change of colour.
+**Measure.** `--measure` is 688px and holds all prose. `--wide` is 1136px and
+holds the image panels and the data. Sections run on one rhythm, 48px on small
+screens and 64px from `md` up.
 
-**Shape.** 4px on panels and cards, fully rounded on pills, nothing in between.
-Buttons are 40px tall with 14px type; `.btn` deliberately does not declare
-`display`, because doing so beats Tailwind's `hidden` and leaks the nav CTA
-onto mobile. Call sites add their own `inline-flex`.
+**Composition.** This is the part that matters most and the part that is
+easiest to get wrong. The page is prose on bare paper, punctuated by large
+greyscale image panels. It is not a stack of bordered cards. Concretely:
+
+- Sections are a small 11px label, a serif heading, and paragraphs in the
+  688px column. No border, no box, no background.
+- The visual weight is carried by `Visual`, a full band width greyscale panel
+  with 4px corners. The first one sits directly under the hero and holds the
+  mark in white. Images drift slightly against their frame on scroll.
+- Lists are a small mark, a title and a line of text. They are not cards and
+  they carry no outline.
+- Only the genuinely interactive pieces get a container, and it is a bare
+  `--panel` fill with no border: the trace, the pipeline, the graph, the
+  network modes.
+- The hero is left aligned in the column, compact, near the top. It is not
+  centred and not full height.
+
+If a future change starts wrapping sections in bordered panels again, it will
+drift straight back to looking like a generic SaaS page.
 
 ## Motion
 

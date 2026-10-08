@@ -33,33 +33,30 @@ export function Control() {
   const active = modes[mode]
 
   return (
-    <section id="control" className="border-t">
-      <div className="col-wide gutter section-y grid gap-12 md:grid-cols-12">
-        <div className="md:col-span-5">
-        <Reveal>
+    <section id="control" className="section-y">
+      <div className="band gutter">
+        <Reveal className="prose-col">
           <SectionLabel>Control</SectionLabel>
         </Reveal>
-        <MaskText
-          className="display mt-6 max-w-[34ch]"
-          delay={80}
-        >
-          You decide how far it can reach.
-        </MaskText>
-        <Reveal delay={200}>
-          <p className="mt-6 max-w-[46ch] lead">
-            We will not claim nothing ever leaves your phone. Sending an email
-            means sending an email. What we promise is that only the part a task
-            needs goes out. Your memory never travels just because one tool
-            wanted the internet.
-          </p>
-          <p className="mt-5 max-w-[46ch] lead !text-[color:var(--foreground)]">
-            Before it does anything that touches another person, it asks.
-          </p>
-        </Reveal>
+        <div className="prose-col">
+          <MaskText className="display mt-3 max-w-[34ch]" delay={60}>
+            You decide how far it can reach.
+          </MaskText>
+          <Reveal delay={180}>
+            <p className="mt-5 lead">
+              We will not claim nothing ever leaves your phone. Sending an email
+              means sending an email. What we promise is that only the part a
+              task needs goes out. Your memory never travels just because one
+              tool wanted the internet.
+            </p>
+            <p className="mt-5 lead !text-[color:var(--foreground)]">
+              Before it does anything that touches another person, it asks.
+            </p>
+          </Reveal>
         </div>
 
-        <Reveal delay={120} className="md:col-span-7">
-          <div className="surface overflow-hidden rounded-[4px]">
+        <Reveal delay={240} className="prose-col mt-9">
+          <div className="overflow-hidden rounded-[4px]" style={{ background: 'var(--panel)' }}>
             <div role="radiogroup" aria-label="Network mode" className="relative grid grid-cols-3 border-b">
               <span
                 aria-hidden="true"

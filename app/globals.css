@@ -50,7 +50,7 @@
   --display-sm-size: 20px;
 
   --measure: 688px;   /* the text column */
-  --wide: 1080px;     /* panels, data, anything that is not prose */
+  --wide: 1136px;     /* panels, data, anything that is not prose */
 
   --ease: cubic-bezier(0.22, 0.61, 0.36, 1);
   --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
@@ -102,10 +102,25 @@
   }
 
   .section-y {
-    padding-block: 56px;
+    padding-block: 48px;
   }
   @media (min-width: 768px) {
-    .section-y { padding-block: 80px; }
+    .section-y { padding-block: 64px; }
+  }
+
+  /* Prose sections sit on bare paper. No border, no box. */
+  .prose-col {
+    width: 100%;
+    max-width: var(--measure);
+    margin-inline: auto;
+  }
+  .prose-col > * + p { margin-top: 20px; }
+
+  /* The wide band that image panels and data live in. */
+  .band {
+    width: 100%;
+    max-width: var(--wide);
+    margin-inline: auto;
   }
 
   /* ---- Type ------------------------------------------------------------- */

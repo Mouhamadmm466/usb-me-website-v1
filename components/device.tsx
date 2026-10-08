@@ -1,5 +1,4 @@
 import { MaskText } from '@/components/mask-text'
-import { ParallaxImage } from '@/components/parallax-image'
 import { Reveal } from '@/components/reveal'
 import { SectionLabel } from '@/components/section-label'
 
@@ -18,31 +17,17 @@ const offline = [
 
 export function Device() {
   return (
-    <section id="device" className="border-t section-y">
-      <div className="col-wide gutter grid gap-12 md:grid-cols-12">
-        <Reveal className="md:col-span-6">
-          <div className="md:sticky md:top-28">
-          <ParallaxImage
-            src="/images/device.png"
-            alt="A hand holding a phone in soft directional light"
-            sizes="(max-width: 768px) 100vw, 560px"
-            className="surface aspect-[4/5] w-full rounded-[4px]"
-          />
-          </div>
+    <section id="device" className="section-y">
+      <div className="band gutter">
+        <Reveal className="prose-col">
+          <SectionLabel>On your phone</SectionLabel>
         </Reveal>
-
-        <div className="md:col-span-6">
-          <Reveal>
-            <SectionLabel>Your phone</SectionLabel>
-          </Reveal>
-          <MaskText
-            className="display mt-6 max-w-[34ch]"
-            delay={80}
-          >
+        <div className="prose-col">
+          <MaskText className="display mt-3 max-w-[34ch]" delay={60}>
             The internet is a tool it picks up, not a place it lives.
           </MaskText>
-          <Reveal delay={200}>
-            <p className="mt-6 max-w-[46ch] lead">
+          <Reveal delay={180}>
+            <p className="mt-5 lead">
               The model, the memory and the thinking all sit on your phone. Most
               of what you ask never needs a connection. When something truly
               does, like sending an email, it reaches out for that one step and
@@ -50,44 +35,34 @@ export function Device() {
             </p>
           </Reveal>
 
-          <Reveal delay={90} className="surface surface-lift mt-10 rounded-[4px] p-6 sm:p-7">
-            <p className="label">your phone</p>
-            <ul className="mt-4">
+          <Reveal delay={240} className="mt-8">
+            <p className="label">what lives on the device</p>
+            <dl className="mt-4">
               {stack.map((s) => (
-                <li
+                <div
                   key={s.label}
                   className="flex flex-wrap items-baseline justify-between gap-x-6 gap-y-1 border-b py-3 last:border-b-0"
                 >
-                  <span className="text-[17px] tracking-[-0.02em] text-foreground">
-                    {s.label}
-                  </span>
-                  <span className="text-[14px] text-muted-foreground">
-                    {s.note}
-                  </span>
-                </li>
+                  <dt className="text-[15px] font-medium">{s.label}</dt>
+                  <dd className="body-sm">{s.note}</dd>
+                </div>
               ))}
-            </ul>
-            <div className="mt-5 flex items-center gap-3 border-t pt-4">
-              <span
-                aria-hidden="true"
-                className="h-1.5 w-1.5 shrink-0 rounded-full"
-                style={{ background: 'var(--signal)' }}
-              />
-              <span className="text-[14px] text-muted-foreground">
-                Nothing above this line needs a network.
-              </span>
-            </div>
+            </dl>
           </Reveal>
 
-          <Reveal delay={150} className="mt-10">
-            <p className="text-[15px] text-foreground">
+          <Reveal delay={300} className="mt-8">
+            <p className="text-[15px] font-medium">
               In airplane mode, all of this still works.
             </p>
-            <ul className="mt-4 space-y-2.5">
+            <ul className="mt-3 space-y-2">
               {offline.map((q) => (
                 <li
                   key={q}
-                  className="text-[17px] leading-snug tracking-[-0.02em] text-muted-foreground"
+                  className="text-[16px] leading-snug"
+                  style={{
+                    fontFamily: 'var(--font-serif), serif',
+                    color: 'var(--strong)',
+                  }}
                 >
                   “{q}”
                 </li>

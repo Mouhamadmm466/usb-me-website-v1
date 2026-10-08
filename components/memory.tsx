@@ -54,36 +54,34 @@ export function Memory() {
   const current = active ? nodes[active] : null
 
   return (
-    <section id="memory" className="border-t section-y">
-      <div className="col-wide gutter grid gap-12 md:grid-cols-12">
-        <div className="md:col-span-5">
-        <Reveal>
+    <section id="memory" className="section-y">
+      <div className="band gutter">
+        <Reveal className="prose-col">
           <SectionLabel>Memory</SectionLabel>
         </Reveal>
-        <MaskText
-          className="display mt-6 max-w-[34ch]"
-          delay={80}
-        >
-          It knows how your world fits together.
-        </MaskText>
-        <Reveal delay={200}>
-          <p className="mt-6 max-w-[46ch] lead">
-            Not a long history of everything you ever typed. usb-me keeps a real
-            picture of your life. People, projects, goals, documents, decisions,
-            promises, and how they connect. That is what lets it answer where
-            did we leave off without you explaining anything.
-          </p>
-          <p className="mt-5 max-w-[46ch] lead !text-[color:var(--foreground)]">
-            You can read all of it, fix it, or delete it. It lives on your
-            phone, and it comes with you when the models get better.
-          </p>
-        </Reveal>
+        <div className="prose-col">
+          <MaskText className="display mt-3 max-w-[34ch]" delay={60}>
+            It knows how your world fits together.
+          </MaskText>
+          <Reveal delay={180}>
+            <p className="mt-5 lead">
+              Not a long history of everything you ever typed. usb-me keeps a
+              real picture of your life. People, projects, goals, documents,
+              decisions, promises, and how they connect. That is what lets it
+              answer where did we leave off without you explaining anything.
+            </p>
+            <p className="mt-5 lead">
+              You can read all of it, fix it, or delete it. It lives on your
+              phone, and it comes with you when the models get better.
+            </p>
+          </Reveal>
         </div>
 
-        <Reveal delay={120} className="md:col-span-7">
+        <Reveal delay={240} className="mt-10">
           <figure
             ref={figureRef}
-            className="surface overflow-hidden rounded-[4px]"
+            className="overflow-hidden rounded-[4px]"
+            style={{ background: 'var(--panel)' }}
             onMouseLeave={() => setActive(null)}
           >
             <svg
@@ -162,7 +160,7 @@ export function Memory() {
               })}
             </svg>
 
-            <figcaption className="flex min-h-[72px] items-center gap-4 border-t px-6 py-4">
+            <figcaption className="flex min-h-[64px] items-center gap-4 border-t px-6 py-4">
               {current ? (
                 <>
                   <span className="label shrink-0">{current.kind}</span>
